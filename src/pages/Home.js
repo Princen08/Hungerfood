@@ -5,7 +5,7 @@ import NavBar from "../components/Navbar.js";
 export default function Home() {
   return (
     <> 
-       <NavBar count = {0}></NavBar>
+       <NavBar count = {10}></NavBar>
     </>
   );
 }
