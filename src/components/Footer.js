@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../App.css"
-import NavBar from "../components/Navbar.js";
-import Card from "../components/Card";
-import BeatLoader from "react-spinners/ClipLoader";
 
 export default function Footer() {
   return (
