@@ -86,21 +86,29 @@ app.post('/verify', async (req, res) => {
 
 
 app.get('/getMenu', async (req, res) => {
-    Item.find({}).then(function (err, docs) {
-        res.send(err);
-    });
+        Item.find({}).then(function (err, docs) {
+            res.send(err);
+        });
 });
 
 app.post('/addItem', async (req, res) => {
     const id = req.body.id;
     const email = req.body.email
     const payment = req.body.payment
-
+    const count = req.body.count
+    const name = req.body.name
+    const price = req.body.price
+    const category = req.body.category
+    console.log(price,);
     const orderData = new Order({
         id: id,
         email: email,
         payment: payment,
-        timestamp: new Date().toLocaleString(undefined, {timeZone: 'Asia/Kolkata'})
+        count: count,
+        timestamp: new Date().toLocaleString(undefined, {timeZone: 'Asia/Kolkata'}),
+        name: name,
+        price: price,
+        category: category,
     })
 
     try {
@@ -118,12 +126,34 @@ app.get('/getItems', async (req, res) => {
     });
 });
 
+app.get('/getCartItems', async (req, res) => {
+    Order.find({email: req.query.email}).then(function (data, docs) {
+        res.send(data);
+        console.log(data);
+    });
+});
+
 app.post('/removeItem', async (req, res) => {
     const id = req.body.id;
     const email = req.body.email
     Order.deleteMany({id: id, email: email}).then(function (err, docs) {
         res.send("Delete Successfully");
     });
+});
+
+app.post('/updateItem', async (req, res) => {
+    const id = req.body.params.id;
+    const email = req.body.params.email
+    const type = req.body.params.type;
+    let curr = await Order.findOne({ email: email, id: id });
+    curr.count += type;
+    if(curr.count > 0)  {
+       await curr.save();
+       let cnt = curr.count
+       res.send({count: cnt});
+    } else {
+       res.send({count: 1});
+    }
 });
 
 const port = process.env.PORT || 4000;

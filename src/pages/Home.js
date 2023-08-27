@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 let currOrder = [];
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -17,10 +18,9 @@ export default function Home() {
     currOrder = [];
     axios.get('http://localhost:4000/getItems', {
       params: {
-        email: location.state.email
+        email: location.state?.email
       }
     }).then((response) => {
-      console.log(response)
       response?.data.forEach(element => {
         if (!currOrder.includes(element.id))
           currOrder.push(element.id)
@@ -42,18 +42,33 @@ export default function Home() {
   const handleClick = event => {
     // add item
     let curr = parseInt(event.currentTarget.id);
-    if (event.currentTarget.innerText == "Add to cart") {
+    if (event.currentTarget.innerText === "Add to cart") {
       if (!currOrder.includes(curr)) {
         currOrder.push(curr);
         setSelectedItem([...selectedItem, curr]);
       }
       event.currentTarget.innerText = "Remove";
       event.currentTarget.style.backgroundColor = "#f21b1b";
-      axios.post('http://localhost:4000/addItem', {
-        id: event.currentTarget.id,
-        email: location.state.email,
-        payment: 0
+      axios.get('http://localhost:4000/getMenu', {
+      }).then((response) => {
+        for(let i = 0; i < response.data.length; i++) {
+          if(response.data[i].id === curr) {
+             axios.post('http://localhost:4000/addItem', {
+              id: curr,
+              email: location.state.email,
+              payment: 0,
+              count: 1,
+              name: response.data[i].name,
+              price: response.data[i].price,
+              category: response.data[i].category
+            });
+             break;
+          }
+        }
+      }, (error) => {
+        console.log(error);
       });
+      // console.log(item);
     } else {
       // remove item
       event.currentTarget.innerText = "Add to cart";
@@ -70,7 +85,6 @@ export default function Home() {
         currOrder.splice(index, 1); // Remove the element at the found index
       }
     }
-    console.log(currOrder);
   };
   useEffect(() => {
     setTimeout(() => setLoading(false), 1500);
@@ -80,7 +94,7 @@ export default function Home() {
   useEffect(() => {
     getMenu();
   }, [selectedItem]);
-  
+
 
   const handleOnSearch = (string, results) => {
     // onSearch will have as the first callback parameter
@@ -101,13 +115,13 @@ export default function Home() {
   }
   return (
     <>
-      <NavBar count={currOrder.length}></NavBar>
+      <NavBar count={currOrder.length} email={location.state.email}></NavBar>
       {loading && (<div className="flex items-center justify-center h-screen">
         <BeatLoader size={70} loading={loading} color="blue" />
       </div>)}
       {!loading && (
-        <div style={{margin:"1rem 5rem"}}>
-          <ReactSearchAutocomplete styling={{ fontFamily: "poppins", border:"1px solid black", backgroundColor:"#f7f7f7"}}
+        <div style={{ margin: "1rem 5rem" }}>
+          <ReactSearchAutocomplete styling={{ fontFamily: "poppins", border: "1px solid black", backgroundColor: "#f7f7f7" }}
             items={itemList}
             onSearch={handleOnSearch}
             onSelect={handleOnSelect}
@@ -128,7 +142,7 @@ export default function Home() {
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
               </a>
               <div className="flex items-center justify-between mt-6">
-                <span className="text-1xl font-bold text-gray-900 dark:text-white">Rs {item.price} /-</span>
+                <span className="text-1xl font-bold text-gray-900 dark:text-white">Rs. {item.price}</span>
                 <button id={item.id} className="text-white font-bold py-2 px-4 rounded" style={{ backgroundColor: currOrder.includes(item.id) ? "#f21b1b" : "#2472f0" }} onClick={handleClick}>{!currOrder.includes(item.id) ? "Add to cart" : "Remove"}</button>
               </div>
             </div>

@@ -1,17 +1,13 @@
 import React from "react";
-// import "../App.css"
 import { ReactComponent as Logo } from "./logo.svg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-
-import { useNavigate } from "react-router-dom";
-
+import { useLocation,  useNavigate} from 'react-router-dom';
 let navigation = [
   { name: 'Home', href: '/home', current: true },
-  { name: 'Menu', href: '/menu', current: false }
 ]
 
 function classNames(...classes) {
@@ -20,8 +16,15 @@ function classNames(...classes) {
 
 export default function Navbar(props) {
   const navigate = useNavigate();
+  const location = useLocation();
   const handleLogout = () => {
     navigate("/");
+  }
+  const handleClick = () => {
+    navigate("/cart", {state:{email: props.email}});
+  }
+  const handleHome = () => {
+    navigate("/home", {state:{email: props.email}});
   }
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -47,11 +50,12 @@ export default function Navbar(props) {
                   <h1 style={{ fontFamily: "Poppins", color: "white", fontSize: "1.2rem" }}>Hunger Food</h1>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4" style={{ fontFamily: "poppins" }}>
+                  <div className="flex space-x-4" style={{ fontFamily: "poppins", cursor:"pointer" }}>
                     {navigation.map((item) => (
                       <a
                         key={item.name}
-                        href={item.href}
+                        // href={item.href}
+                        onClick={handleHome}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -66,7 +70,7 @@ export default function Navbar(props) {
               </div>
               <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"  style={{ gap: 30}}>
                 <div style={{ marginTop: "0.4rem" }}>
-                  <FontAwesomeIcon icon={faCartShopping} size="xl" style={{ color: "#ffffff" }} />
+                  <FontAwesomeIcon icon={faCartShopping} size="xl" style={{ color: "#ffffff", cursor:"pointer" }} onClick={handleClick}/>
                   {props.count > 0 && (<span className="count" style={{marginTop:"0.6rem"}}>{props.count}</span>)}
                 </div>
                 <div>
@@ -85,7 +89,8 @@ export default function Navbar(props) {
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  href={item.href}
+                  // href={item.href}
+                  onClick={handleHome}
                   className={classNames(
                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block rounded-md px-3 py-2 text-base font-medium'

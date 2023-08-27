@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {Schema}  = require('mongoose');
 
 const ReactFormDataSchema = new mongoose.Schema({
     email: {
@@ -6,6 +7,10 @@ const ReactFormDataSchema = new mongoose.Schema({
         required: true
     },
     id: {
+        type: Number,
+        ref: 'Item'
+    },
+    count: {
         type: Number,
         required: true
     },
@@ -16,7 +21,19 @@ const ReactFormDataSchema = new mongoose.Schema({
     timestamp: {
         type: String,
         required: true
-    }
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
    
 });
 

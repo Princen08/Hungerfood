@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const {Schema}  = require('mongoose');
 const ReactFormDataSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -12,8 +12,7 @@ const ReactFormDataSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true
-    }
-   
+    },
 });
 
 const Item = mongoose.model('Item', ReactFormDataSchema);
