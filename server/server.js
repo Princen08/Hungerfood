@@ -14,14 +14,9 @@ const Item = require('./models/itemSchema')
 const Order = require('./models/orderSchema')
 
 app.get("/", (req, res) => {
-  Item.find({}).then(function (err, docs) {
-        res.json(err);
-    });
-    res.json("Hello")
+   res.json("Hello");
 })
-app.get("/p", (req, res) => {
-    res.json("Helo")
-})
+
 app.post('/signup', async (req, res) => {
     const name = req.body.name;
     const email = req.body.email

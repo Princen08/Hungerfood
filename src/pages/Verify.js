@@ -12,7 +12,7 @@ export default function Verify() {
   const [c4, setC4] = useState('');
 
    async function addUser() {
-       axios.post('http://localhost:4000/signup', {
+       axios.post('https://online-food-coupon-api.vercel.app/signup', {
           name: location.state.name,
           email: location.state.email,
           password: location.state.password

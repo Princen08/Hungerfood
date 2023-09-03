@@ -16,7 +16,7 @@ export default function Home() {
   const [selectedItem, setSelectedItem] = useState([]);
   async function getOrder() {
     currOrder = [];
-    axios.get('http://localhost:4000/getItems', {
+    axios.get('https://online-food-coupon-api.vercel.app/getItems', {
       params: {
         email: location.state?.email
       }
@@ -31,7 +31,7 @@ export default function Home() {
   }
 
   async function getMenu() {
-    axios.get('http://localhost:4000/getMenu', {
+    axios.get('https://online-food-coupon-api.vercel.app/getMenu', {
     }).then((response) => {
       setItemList(response.data)
     }, (error) => {
@@ -49,11 +49,11 @@ export default function Home() {
       }
       event.currentTarget.innerText = "Remove";
       event.currentTarget.style.backgroundColor = "#f21b1b";
-      axios.get('http://localhost:4000/getMenu', {
+      axios.get('https://online-food-coupon-api.vercel.app/getMenu', {
       }).then((response) => {
         for(let i = 0; i < response.data.length; i++) {
           if(response.data[i].id === curr) {
-             axios.post('http://localhost:4000/addItem', {
+             axios.post('https://online-food-coupon-api.vercel.app/addItem', {
               id: curr,
               email: location.state.email,
               payment: 0,
@@ -77,7 +77,7 @@ export default function Home() {
       setSelectedItem((current) =>
         current.filter((order) => order !== curr)
       );
-      axios.post('http://localhost:4000/removeItem', {
+      axios.post('https://online-food-coupon-api.vercel.app/removeItem', {
         id: event.currentTarget.id,
         email: location.state.email
       });

@@ -16,7 +16,7 @@ export default function Cart() {
   const [showModel, setShowModal] = useState(false);
   async function getOrder() {
     currOrder = [];
-    axios.get('http://localhost:4000/getCartItems', {
+    axios.get('https://online-food-coupon-api.vercel.app/getCartItems', {
       params: {
         email: location.state.email
       }
@@ -40,7 +40,7 @@ export default function Cart() {
 
   const increment = event => {
     let curr = parseInt(event.currentTarget.id);
-    axios.post('http://localhost:4000/updateItem', {
+    axios.post('https://online-food-coupon-api.vercel.app/updateItem', {
       params: {
         email: location.state.email,
         id: curr,
@@ -54,7 +54,7 @@ export default function Cart() {
   
   const decrement = event => {
     let curr = parseInt(event.currentTarget.id);
-    axios.post('http://localhost:4000/updateItem', {
+    axios.post('https://online-food-coupon-api.vercel.app/updateItem', {
       params: {
         email: location.state.email,
         id: curr,
@@ -67,7 +67,7 @@ export default function Cart() {
   }
   const handleRemove = event => {
     let curr = parseInt(event.currentTarget.id);
-    axios.post('http://localhost:4000/removeItem', {
+    axios.post('https://online-food-coupon-api.vercel.app/removeItem', {
         email: location.state.email,
         id: curr,
     }).then((res)=> {

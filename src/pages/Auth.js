@@ -28,7 +28,7 @@ export default function Auth() {
 
   async function handleVerification() {
     otp = randomNumberInRange(1000, 9999);
-    axios.post('http://localhost:4000/verify', {
+    axios.post('https://online-food-coupon-api.vercel.app/verify', {
       email: email,
       otp: otp
     })
