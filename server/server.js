@@ -15,7 +15,7 @@ const Order = require('./models/orderSchema')
 
 app.get("/", (req, res) => {
   Item.find({}).then(function (err, docs) {
-        res.send(err);
+        res.json(err);
     });
     res.json("Hello")
 })
