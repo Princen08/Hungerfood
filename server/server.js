@@ -13,6 +13,9 @@ app.use(cors());
 mongoose.connect('mongodb+srv://princepatel30082003:Prince@cluster0.mnuw43k.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 
 app.get("/", (req, res) => {
+    Item.find({}).then(function (err, docs) {
+        res.send(err);
+    });
     res.json("Hello")
 })
 app.get("/p", (req, res) => {
