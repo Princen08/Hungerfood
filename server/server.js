@@ -10,9 +10,9 @@ var nodemailer = require('nodemailer');
 app.use(express.json());
 app.use(cors(
     {
-        // origin:["https://online-food-coupon.vercel.app/", "http://localhost:3000/home"],
+        origin:["http://localhost:3000"],
         methods: ["POST", "GET"],
-        // credentials: true,
+        credentials: true,
     }
 ));
 
