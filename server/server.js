@@ -8,6 +8,7 @@ const Order = require('./models/orderSchema')
 var nodemailer = require('nodemailer');
 
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect('mongodb+srv://princepatel30082003:Prince@cluster0.mnuw43k.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 
