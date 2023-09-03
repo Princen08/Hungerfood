@@ -2,9 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const User = require('./models/userSchema')
-const Item = require('./models/itemSchema')
-const Order = require('./models/orderSchema')
 var nodemailer = require('nodemailer');
 
 app.use(express.json());
@@ -12,8 +9,12 @@ app.use(cors());
 
 mongoose.connect('mongodb+srv://princepatel30082003:Prince@cluster0.mnuw43k.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 
+const User = require('./models/userSchema')
+const Item = require('./models/itemSchema')
+const Order = require('./models/orderSchema')
+
 app.get("/", (req, res) => {
-    Item.find({}).then(function (err, docs) {
+  Item.find({}).then(function (err, docs) {
         res.send(err);
     });
     res.json("Hello")
