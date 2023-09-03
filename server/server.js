@@ -15,6 +15,9 @@ mongoose.connect('mongodb+srv://princepatel30082003:Prince@cluster0.mnuw43k.mong
 app.get("/", (req, res) => {
     res.json("Hello")
 })
+app.get("/p", (req, res) => {
+    res.json("Helo")
+})
 app.post('/signup', async (req, res) => {
     const name = req.body.name;
     const email = req.body.email
