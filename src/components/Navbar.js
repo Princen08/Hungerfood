@@ -27,14 +27,14 @@ export default function Navbar(props) {
     navigate("/home", {state:{email: props.email}});
   }
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-gray-800" style={{fontFamily:"Inter"}}>
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" style={{fontFamily:"Inter"}}>
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md  text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -45,12 +45,12 @@ export default function Navbar(props) {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center" style={{gap:10}}>
+                <div className="flex flex-shrink-0 items-center ml-2 sm:ml-2" style={{gap:10}}>
                   <Logo></Logo>
-                  <h1 style={{ fontFamily: "Poppins", color: "white", fontSize: "1.2rem" }}>Hunger Food</h1>
+                  <h1 style={{ fontFamily: "Inter", color: "white", fontSize: "1.2rem" }}>Hunger Food</h1>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4" style={{ fontFamily: "poppins", cursor:"pointer" }}>
+                  <div className="flex space-x-4" style={{ fontFamily: "Inter", cursor:"pointer" }}>
                     {navigation.map((item) => (
                       <a
                         key={item.name}
@@ -74,7 +74,7 @@ export default function Navbar(props) {
                   {props.count > 0 && (<span className="count" style={{marginTop:"0.6rem"}}>{props.count}</span>)}
                 </div>
                 <div>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style={{ fontFamily: "Poppins", position: "inherit", backgroundColor: "#6066d1" }} onClick={handleLogout}>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl" style={{ fontFamily: "Inter", position: "inherit", backgroundColor: "#6066d1" }} onClick={handleLogout}>
                     Log Out
                   </button>
                 </div>

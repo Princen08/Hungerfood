@@ -33,7 +33,7 @@ export default function Verify() {
  }
   return (
     <>
-       <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12" style={{fontFamily:"poppins"}}>
+       <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12" style={{fontFamily:"DM Sans"}}>
         <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
           <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
             <div className="flex flex-col items-center justify-center text-center space-y-2">
@@ -63,7 +63,7 @@ export default function Verify() {
                   </div>
                   <div className="flex flex-col space-y-5">
                     <div>
-                      <button className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm">
+                      <button className="flex flex-row items-center justify-center text-center w-full border rounded-3xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm">
                         Verify Account
                       </button>
                     </div>

@@ -34,6 +34,9 @@ const ReactFormDataSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    src: {
+        type: String
+    }
    
 });
 

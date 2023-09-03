@@ -60,7 +60,8 @@ export default function Home() {
               count: 1,
               name: response.data[i].name,
               price: response.data[i].price,
-              category: response.data[i].category
+              category: response.data[i].category,
+              src: response.data[i].src,
             });
              break;
           }
@@ -99,12 +100,12 @@ export default function Home() {
   const handleOnSearch = (string, results) => {
     // onSearch will have as the first callback parameter
     // the string searched and for the second the results.
-    console.log(string, results)
+    // console.log(string, results)
   }
 
   const handleOnSelect = (item) => {
     // the item selected
-    console.log(item)
+    // console.log(item)
   }
   const formatResult = (item) => {
     return (
@@ -121,7 +122,7 @@ export default function Home() {
       </div>)}
       {!loading && (
         <div style={{ margin: "1rem 5rem" }}>
-          <ReactSearchAutocomplete styling={{ fontFamily: "poppins", border: "1px solid black", backgroundColor: "#f7f7f7" }}
+          <ReactSearchAutocomplete styling={{ fontFamily: "Inter", border: "px solid black", backgroundColor: "#f7f7f7" }}
             items={itemList}
             onSearch={handleOnSearch}
             onSelect={handleOnSelect}
@@ -133,9 +134,9 @@ export default function Home() {
       )}
       {!loading && (<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 m-10">
         {itemList && itemList.map((item, index) => (
-          <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style={{ fontFamily: "poppins" }}>
+          <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style={{ fontFamily: "Inter" }}>
             <a>
-              <img className="p-8 rounded-t-lg" src="" alt="product image" />
+              <img className="p-8 rounded-t-lg" src={item?.src} alt="product image" />
             </a>
             <div className="px-5 pb-5">
               <a>
@@ -143,7 +144,7 @@ export default function Home() {
               </a>
               <div className="flex items-center justify-between mt-6">
                 <span className="text-1xl font-bold text-gray-900 dark:text-white">Rs. {item.price}</span>
-                <button id={item.id} className="text-white font-bold py-2 px-4 rounded" style={{ backgroundColor: currOrder.includes(item.id) ? "#f21b1b" : "#2472f0" }} onClick={handleClick}>{!currOrder.includes(item.id) ? "Add to cart" : "Remove"}</button>
+                <button id={item.id} className="text-white font-bold py-2 px-4 rounded-3xl" style={{ backgroundColor: currOrder.includes(item.id) ? "#f21b1b" : "#2472f0" }} onClick={handleClick}>{!currOrder.includes(item.id) ? "Add to cart" : "Remove"}</button>
               </div>
             </div>
           </div>
