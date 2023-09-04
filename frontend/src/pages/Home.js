@@ -14,9 +14,10 @@ export default function Home() {
   const location = useLocation();
   const [itemList, setItemList] = useState([]);
   const [selectedItem, setSelectedItem] = useState([]);
+ 
   async function getOrder() {
     currOrder = [];
-    axios.get('https://online-food-coupon-api.vercel.app/getItems', {
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/item/getCartItems`, {
       params: {
         email: location.state?.email
       }
@@ -31,7 +32,7 @@ export default function Home() {
   }
 
   async function getMenu() {
-    axios.get('https://online-food-coupon-api.vercel.app/getMenu', {
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/item/getMenu`, {
     }).then((response) => {
       setItemList(response.data)
     }, (error) => {
@@ -49,11 +50,12 @@ export default function Home() {
       }
       event.currentTarget.innerText = "Remove";
       event.currentTarget.style.backgroundColor = "#f21b1b";
-      axios.get('https://online-food-coupon-api.vercel.app/getMenu', {
+      axios.get(`${process.env.REACT_APP_API_BASE_URL}/item/getMenu`, {
       }).then((response) => {
         for(let i = 0; i < response.data.length; i++) {
           if(response.data[i].id === curr) {
-             axios.post('https://online-food-coupon-api.vercel.app/addItem', {
+            console.log(response.data[i])
+             axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/addItem`, {
               id: curr,
               email: location.state.email,
               payment: 0,
@@ -77,7 +79,7 @@ export default function Home() {
       setSelectedItem((current) =>
         current.filter((order) => order !== curr)
       );
-      axios.post('https://online-food-coupon-api.vercel.app/removeItem', {
+      axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/removeItem`, {
         id: event.currentTarget.id,
         email: location.state.email
       });
@@ -135,13 +137,13 @@ export default function Home() {
       {!loading && (<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 m-10">
         {itemList && itemList.map((item, index) => (
           <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style={{ fontFamily: "Inter" }}>
-            <a>
-              <img className="p-8 rounded-t-lg" src={item?.src} alt="product image" />
-            </a>
+            <span>
+              <img className="p-8 rounded-t-lg" src={item?.src} alt="product" />
+            </span>
             <div className="px-5 pb-5">
-              <a>
+              <span>
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
-              </a>
+              </span>
               <div className="flex items-center justify-between mt-6">
                 <span className="text-1xl font-bold text-gray-900 dark:text-white">Rs. {item.price}</span>
                 <button id={item.id} className="text-white font-bold py-2 px-4 rounded-3xl" style={{ backgroundColor: currOrder.includes(item.id) ? "#f21b1b" : "#2472f0" }} onClick={handleClick}>{!currOrder.includes(item.id) ? "Add to cart" : "Remove"}</button>

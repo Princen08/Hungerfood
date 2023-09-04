@@ -16,7 +16,7 @@ export default function Cart() {
   const [showModel, setShowModal] = useState(false);
   async function getOrder() {
     currOrder = [];
-    axios.get('https://online-food-coupon-api.vercel.app/getCartItems', {
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/item/getCartItems`, {
       params: {
         email: location.state.email
       }
@@ -40,7 +40,7 @@ export default function Cart() {
 
   const increment = event => {
     let curr = parseInt(event.currentTarget.id);
-    axios.post('https://online-food-coupon-api.vercel.app/updateItem', {
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/updateItem`, {
       params: {
         email: location.state.email,
         id: curr,
@@ -54,7 +54,7 @@ export default function Cart() {
   
   const decrement = event => {
     let curr = parseInt(event.currentTarget.id);
-    axios.post('https://online-food-coupon-api.vercel.app/updateItem', {
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/updateItem`, {
       params: {
         email: location.state.email,
         id: curr,
@@ -67,7 +67,7 @@ export default function Cart() {
   }
   const handleRemove = event => {
     let curr = parseInt(event.currentTarget.id);
-    axios.post('https://online-food-coupon-api.vercel.app/removeItem', {
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/removeItem`, {
         email: location.state.email,
         id: curr,
     }).then((res)=> {
@@ -88,12 +88,12 @@ export default function Cart() {
          {/* <Modal  data = {selectedItem}/> */}
       {!loading && ( <div style={{fontFamily:"Inter"}}>
       <h1 className="mb-10 text-center text-2xl font-bold mt-8">Cart Items</h1>
-      {selectedItem.length == 0 && (  <h1 className="mb-10 text-center text-2xl font-bold mt-8">Cart is empty!</h1>)}
+      {selectedItem.length === 0 && (  <h1 className="mb-10 text-center text-2xl font-bold mt-8">Cart is empty!</h1>)}
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
       <div className="rounded-lg md:w-2/3">
         {selectedItem && selectedItem.map((item, index) => (
            <div className="justify-between mb-6 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
-           <img src={item?.src} alt="product-image" className="w-full border-1 border-black rounded-lg sm:w-40" />
+           <img src={item?.src} alt="product" className="w-full border-1 border-black rounded-lg sm:w-40" />
            <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
              <div className="mt-5 sm:mt-0">
                <h2 className="text-lg font-bold text-gray-900">{item.name}</h2>
@@ -106,19 +106,19 @@ export default function Cart() {
                  <span className="h-8 w-8 border-2 bg-white text-center text-xs outline-none justify-between pt-2" style={{userSelect:"none"}} >{qty.get(item.id)}</span>
                  <span id = {item.id} className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 bg-green-600 text-white" style={{userSelect:"none"}}  onClick={increment}> + </span>
                </div>
-               {/* <div className="flex items-center space-x-4">
-                 <p className="text-sm">Rs. {item.price * qty.get(item.id)}</p>
+               <div className="flex items-center space-x-4">
+                 <p className="text-sm ml-2">Rs. {item.price * qty.get(item.id)}</p>
                  <svg id = {item.id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500" onClick={handleRemove}>
                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                  </svg>
-               </div> */}
+               </div>
              </div>
            </div>
          </div>
         ))
         }
         </div>
-      {selectedItem.length > 0  && (<div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+      {selectedItem.length > 0  && (<div className="mt-6 h-full rounded-lg border bg-white p-6 mb-4 shadow-md md:mt-0 md:w-1/3">
             <div className="mb-2 flex justify-between">
               <p className="text-gray-700">Subtotal</p>
               <p className="text-gray-700">Rs. {totalAmt}</p>

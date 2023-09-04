@@ -3,7 +3,7 @@ import "../App.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BeatLoader from "react-spinners/ClipLoader";
-import { ReactComponent as Logo } from "../components/logo.svg"
+import { ReactComponent as Logo } from "../assets/logo.svg"
 
 export default function Auth() {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -14,6 +14,7 @@ export default function Auth() {
   const [loading, setLoading] = useState(true);
   const [userExistError, setUserExistError] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
+  
   let otp = "";
   useEffect(() => {
     setEmail("");
@@ -28,7 +29,7 @@ export default function Auth() {
 
   async function handleVerification() {
     otp = randomNumberInRange(1000, 9999);
-    axios.post('https://online-food-coupon-api.vercel.app/verify', {
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/verify`, {
       email: email,
       otp: otp
     })
@@ -47,9 +48,8 @@ export default function Auth() {
         console.log(error);
       });
   }
-
   async function handleSignIn() {
-    axios.post('https://online-food-coupon-api.vercel.app/signin', {
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/signin`, {
       email: email,
       password: password
     })
@@ -99,11 +99,11 @@ export default function Auth() {
             <Logo style={{ marginBottom: "35rem" }}></Logo>
           </div>
           <div style={{ paddingRight: "10rem" }}>
-            <h1 className="text-white font-bold text-4xl">Hunger Food</h1>
+            <h1 className="text-white font-bold text-4xl">Hunger Food  </h1>
           </div>
         </div>
         <div className="flex flex-col md:w-1/2 mt-4 justify-center  items-center bg-white">
-          {userNotFound == true && (<div>
+          {userNotFound === true && (<div>
             <div id="toast-danger" className="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
               <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -120,7 +120,7 @@ export default function Auth() {
               </button>
             </div>
           </div>)}
-          {userExistError == true && (<div>
+          {userExistError === true && (<div>
             <div id="toast-danger" className="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
               <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
                 <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

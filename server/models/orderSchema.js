@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const {Schema}  = require('mongoose');
 
 const ReactFormDataSchema = new mongoose.Schema({
     email: {
@@ -37,7 +36,7 @@ const ReactFormDataSchema = new mongoose.Schema({
     src: {
         type: String
     }
-   
+
 });
 
 const Order = mongoose.model('Order', ReactFormDataSchema);

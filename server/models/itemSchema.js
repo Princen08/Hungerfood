@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const {Schema}  = require('mongoose');
+
 const ReactFormDataSchema = new mongoose.Schema({
     id: {
-       type: Number,
-       required: true
+        type: Number,
+        required: true
     },
     name: {
         type: String,

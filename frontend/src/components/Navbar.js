@@ -1,11 +1,11 @@
 import React from "react";
-import { ReactComponent as Logo } from "./logo.svg"
+import { ReactComponent as Logo } from "../assets/logo.svg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useLocation,  useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 let navigation = [
   { name: 'Home', href: '/home', current: true },
 ]
@@ -16,7 +16,6 @@ function classNames(...classes) {
 
 export default function Navbar(props) {
   const navigate = useNavigate();
-  const location = useLocation();
   const handleLogout = () => {
     navigate("/");
   }
