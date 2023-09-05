@@ -48,9 +48,9 @@ router.post('/verify', async (req, res) => {
     });
 
     var mailOptions = {
-        from: 'noreply.hungerfood@gmail.com',
+        from: process.env.EMAIL_ID,
         to: email,
-        subject: 'Verify email-OTP',
+        subject: 'OTP Verification for Hunger Food',
         text: 'Thank you for choosing us. Use the ' + otp + ' as OTP to complete your Sign up procedures.'
     };
     User.find({ email: email }).then(function (data, docs) {
