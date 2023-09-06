@@ -23,6 +23,8 @@ const authRouter = require("./routes/authRouter");
 app.use("/auth", authRouter);
 const itemRouter = require("./routes/itemRouter");
 app.use("/item", itemRouter);
+const orderRouter = require("./routes/orderRouter");
+app.use("/order", orderRouter);
 
 app.get("/", (req, res) => {
     res.json("Hello");

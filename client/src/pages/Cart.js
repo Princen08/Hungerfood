@@ -83,7 +83,12 @@ export default function Cart() {
          "count": qty.get(item.id)
        })
     });
-    navigate("/myorder", { state: { data: data } });
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/order/addOrder`, {
+      email: localStorage.getItem("currUser"),
+  }).then((res)=> {
+    navigate("/myorder", { state: { data: data, key: res.data } });
+ })
+   
     setShowModal(!showModel);
     
   }
