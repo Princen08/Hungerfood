@@ -14,7 +14,7 @@ export default function Auth() {
   const [loading, setLoading] = useState(true);
   const [userExistError, setUserExistError] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
-  
+
   let otp = "";
   useEffect(() => {
     setEmail("");
@@ -34,13 +34,11 @@ export default function Auth() {
       otp: otp
     })
       .then((response) => {
-        console.log(response);
         if (response.data === "Success") {
           setUserNotFound(false);
           setUserExistError(false);
           navigate("/verify", { state: { email: email, otp: otp, name: name, password: password } });
         } else if (response.data === "User exist") {
-          console.log("Ye")
           setUserNotFound(false);
           setUserExistError(true);
         }
@@ -54,14 +52,14 @@ export default function Auth() {
       password: password
     })
       .then((response) => {
-        if (response.data === "User exist") {
+        if (response.data.message === "User found") {
+          localStorage.setItem("currUser", email);
           navigate("/home", { state: { email: email } });
           setUserNotFound(false);
           setUserExistError(false);
-        } else if (response.data === "User not exist") {
+        } else if (response.data.message === "User not found" || response.data.message === "Invalid password") {
           setUserNotFound(true);
           setUserExistError(false);
-          // alert("Email id or password does not match.")
         }
       }, (error) => {
         console.log(error);
@@ -114,7 +112,7 @@ export default function Auth() {
               <div className="ml-3 text-sm font-normal">User does not exist</div>
               <button type="button" className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg ml-8">
                 <span className="sr-only">Close</span>
-                <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"  onClick={()=> setUserNotFound(false)}>
+                <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" onClick={() => setUserNotFound(false)}>
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
               </button>
@@ -131,7 +129,7 @@ export default function Auth() {
               <div className="ml-3 text-sm font-normal">User already exist.</div>
               <button type="button" className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-danger" aria-label="Close">
                 <span className="sr-only">Close</span>
-                <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" onClick={()=> setUserExistError(false)}>
+                <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" onClick={() => setUserExistError(false)}>
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
               </button>

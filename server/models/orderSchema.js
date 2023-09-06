@@ -13,10 +13,6 @@ const ReactFormDataSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    payment: {
-        type: Boolean,
-        required: true
-    },
     timestamp: {
         type: String,
         required: true

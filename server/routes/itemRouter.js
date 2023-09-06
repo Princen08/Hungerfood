@@ -12,7 +12,6 @@ router.get('/getMenu', async (req, res) => {
 router.post('/addItem', async (req, res) => {
     const id = req.body.id;
     const email = req.body.email
-    const payment = req.body.payment
     const count = req.body.count
     const name = req.body.name
     const price = req.body.price
@@ -21,7 +20,6 @@ router.post('/addItem', async (req, res) => {
     const orderData = new Order({
         id: id,
         email: email,
-        payment: payment,
         count: count,
         timestamp: new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' }),
         name: name,

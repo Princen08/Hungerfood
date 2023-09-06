@@ -6,9 +6,6 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import {useNavigate} from 'react-router-dom';
-let navigation = [
-  { name: 'Home', href: '/home', current: true },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -17,16 +14,20 @@ function classNames(...classes) {
 export default function Navbar(props) {
   const navigate = useNavigate();
   const handleLogout = () => {
+    localStorage.setItem("currUser", "");
     navigate("/");
   }
   const handleClick = () => {
-    navigate("/cart", {state:{email: props.email}});
+    navigate("/cart");
   }
   const handleHome = () => {
-    navigate("/home", {state:{email: props.email}});
+    navigate("/home");
   }
+  let navigation = [
+    { name: 'Home', href: '/home', current: true },
+  ]
   return (
-    <Disclosure as="nav" className="bg-gray-800" style={{fontFamily:"Inter"}}>
+    <Disclosure as="nav" className="bg-gray-800" style={{fontFamily:"Inter", position:"fixed", top:0, width:"100%", zIndex:"2"}}>
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" style={{fontFamily:"Inter"}}>

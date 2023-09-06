@@ -4,14 +4,12 @@ import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer";
 import BeatLoader from "react-spinners/ClipLoader";
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 let currOrder = [];
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
   const [itemList, setItemList] = useState([]);
   const [selectedItem, setSelectedItem] = useState([]);
  
@@ -19,7 +17,7 @@ export default function Home() {
     currOrder = [];
     axios.get(`${process.env.REACT_APP_API_BASE_URL}/item/getCartItems`, {
       params: {
-        email: location.state?.email
+        email: localStorage.getItem("currUser")
       }
     }).then((response) => {
       response?.data.forEach(element => {
@@ -54,11 +52,9 @@ export default function Home() {
       }).then((response) => {
         for(let i = 0; i < response.data.length; i++) {
           if(response.data[i].id === curr) {
-            console.log(response.data[i])
              axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/addItem`, {
               id: curr,
-              email: location.state.email,
-              payment: 0,
+              email: localStorage.getItem("currUser"),
               count: 1,
               name: response.data[i].name,
               price: response.data[i].price,
@@ -71,7 +67,6 @@ export default function Home() {
       }, (error) => {
         console.log(error);
       });
-      // console.log(item);
     } else {
       // remove item
       event.currentTarget.innerText = "Add to cart";
@@ -81,7 +76,7 @@ export default function Home() {
       );
       axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/removeItem`, {
         id: event.currentTarget.id,
-        email: location.state.email
+        email: localStorage.getItem("currUser")
       });
       let index = currOrder.indexOf(curr); // Find the index of the element
       if (index !== -1) {
@@ -118,12 +113,12 @@ export default function Home() {
   }
   return (
     <>
-      <NavBar count={currOrder.length} email={location.state.email}></NavBar>
+      <NavBar count={currOrder.length}></NavBar>
       {loading && (<div className="flex items-center justify-center h-screen">
         <BeatLoader size={70} loading={loading} color="blue" />
       </div>)}
       {!loading && (
-        <div style={{ margin: "1rem 5rem" }}>
+        <div className="relative mt-20 ml-8 mr-8">
           <ReactSearchAutocomplete styling={{ fontFamily: "Inter", border: "px solid black", backgroundColor: "#f7f7f7" }}
             items={itemList}
             onSearch={handleOnSearch}
@@ -134,7 +129,7 @@ export default function Home() {
           />
         </div>
       )}
-      {!loading && (<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 m-10">
+      {!loading && (<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 m-10 mb-44">
         {itemList && itemList.map((item, index) => (
           <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style={{ fontFamily: "Inter" }}>
             <span>

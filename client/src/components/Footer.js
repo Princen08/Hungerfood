@@ -4,7 +4,7 @@ import "../App.css"
 export default function Footer() {
   return (
     <> 
-       <footer className="bg-gray-800 text-center dark:bg-secondary-600" style={{fontFamily:"DM Sans"}}>
+       <footer className="bg-gray-800 text-center dark:bg-secondary-600 h-40 md:h-32" style={{fontFamily:"DM Sans", position:"fixed", bottom:0, width:"100%"}}>
         {/*Sign-up form section*/}
         <div className="px-6 pt-6">
           <form action>
@@ -25,7 +25,7 @@ export default function Footer() {
             </div>
           </form>
         </div>
-        <div className="bg-secondary-200 p-4 text-center text-white dark:bg-secondary-700 dark:text-secondary-200">
+        <div className="bg-secondary-200  text-center text-white dark:bg-secondary-700 dark:text-secondary-200">
           Copyright © 2023 Hunger Food.
         </div>
       </footer>

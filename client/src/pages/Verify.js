@@ -20,13 +20,12 @@ export default function Verify() {
     }
   const handleSubmit = (event) => {
     event.preventDefault();
-     console.log(c1,c2,c3,c4);
      let userOtp = c1 + c2 + c3 + c4;
      userOtp = parseInt(userOtp)
-     console.log(userOtp, location.state.otp)
      if(userOtp === location.state.otp) {
         addUser();
-        navigate("/home", {state:{email:location.state.email}});
+        localStorage.setItem("currUser", )
+        navigate("/home");
      } else {
         console.log("No found");
      }

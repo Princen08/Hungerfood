@@ -4,12 +4,12 @@ import NavBar from "../components/Navbar.js";
 import Footer from "../components/Footer";
 import BeatLoader from "react-spinners/ClipLoader";
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 let currOrder = [];
 const qty = new Map();
 export default function Cart() {
-  const location = useLocation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState([]);
   const [totalAmt, setTotalAmt] = useState(0);
@@ -18,7 +18,7 @@ export default function Cart() {
     currOrder = [];
     axios.get(`${process.env.REACT_APP_API_BASE_URL}/item/getCartItems`, {
       params: {
-        email: location.state.email
+        email: localStorage.getItem("currUser")
       }
     }).then((response) => {
       setSelectedItem(response.data);
@@ -42,7 +42,7 @@ export default function Cart() {
     let curr = parseInt(event.currentTarget.id);
     axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/updateItem`, {
       params: {
-        email: location.state.email,
+        email: localStorage.getItem("currUser"),
         id: curr,
         type: 1,
       }
@@ -56,7 +56,7 @@ export default function Cart() {
     let curr = parseInt(event.currentTarget.id);
     axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/updateItem`, {
       params: {
-        email: location.state.email,
+        email: localStorage.getItem("currUser"),
         id: curr,
         type: -1,
       }
@@ -68,7 +68,7 @@ export default function Cart() {
   const handleRemove = event => {
     let curr = parseInt(event.currentTarget.id);
     axios.post(`${process.env.REACT_APP_API_BASE_URL}/item/removeItem`, {
-        email: location.state.email,
+        email: localStorage.getItem("currUser"),
         id: curr,
     }).then((res)=> {
       getOrder();
@@ -76,11 +76,20 @@ export default function Cart() {
   }
 
   const handleCheckOut = () => {
+    const data = [];
+    selectedItem.forEach(item => {
+       data.push({
+         "id": item.id,
+         "count": qty.get(item.id)
+       })
+    });
+    navigate("/myorder", { state: { data: data } });
     setShowModal(!showModel);
+    
   }
   return (
     <> 
-    <NavBar count={selectedItem.length} email = {location.state.email}></NavBar>
+    <NavBar count={selectedItem.length}></NavBar>
     {loading && (<div className="flex items-center justify-center h-screen">
         <BeatLoader size={70} loading={loading} color="blue" />
       </div>)}
@@ -90,7 +99,7 @@ export default function Cart() {
       <h1 className="mb-10 text-center text-2xl font-bold mt-8">Cart Items</h1>
       {selectedItem.length === 0 && (  <h1 className="mb-10 text-center text-2xl font-bold mt-8">Cart is empty!</h1>)}
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-      <div className="rounded-lg md:w-2/3">
+      <div className="rounded-lg mb-32 md:w-2/3 ">
         {selectedItem && selectedItem.map((item, index) => (
            <div className="justify-between mb-6 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
            <img src={item?.src} alt="product" className="w-full border-1 border-black rounded-lg sm:w-40" />
@@ -118,7 +127,7 @@ export default function Cart() {
         ))
         }
         </div>
-      {selectedItem.length > 0  && (<div className="mt-6 h-full rounded-lg border bg-white p-6 mb-4 shadow-md md:mt-0 md:w-1/3">
+      {selectedItem.length > 0  && (<div className="mt-6 h-full rounded-lg border bg-white p-6 mb-56 shadow-md md:mt-0 md:w-1/3">
             <div className="mb-2 flex justify-between">
               <p className="text-gray-700">Subtotal</p>
               <p className="text-gray-700">Rs. {totalAmt}</p>
