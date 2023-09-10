@@ -21,10 +21,10 @@ router.post('/signin', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
     const user = await User.findOne({ email });
-    const passwordMatch = await bcrypt.compare(password, user.password);
     if (!user) {
         return res.send({ message: 'User not found' });
     }
+    const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
         return res.send({ message: 'Invalid password' });
     }

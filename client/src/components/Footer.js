@@ -4,7 +4,7 @@ import "../App.css"
 export default function Footer() {
   return (
     <> 
-       <footer className="bg-gray-800 text-center dark:bg-secondary-600 h-40 md:h-32" style={{fontFamily:"DM Sans", position:"fixed", bottom:0, width:"100%"}}>
+       <footer className="bg-gray-800 text-center dark:bg-secondary-600 h-40 md:h-32" style={{fontFamily:"DM Sans"}}>
         {/*Sign-up form section*/}
         <div className="px-6 pt-6">
           <form action>

@@ -27,7 +27,7 @@ export default function Navbar(props) {
     { name: 'Home', href: '/home', current: true },
   ]
   return (
-    <Disclosure as="nav" className="bg-gray-800" style={{fontFamily:"Inter", position:"fixed", top:0, width:"100%", zIndex:"2"}}>
+    <Disclosure as="nav" className="bg-gray-800 z-20" style={{fontFamily:"Inter", position:"fixed", top:0, width:"100%"}}>
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8" style={{fontFamily:"Inter"}}>
@@ -75,7 +75,7 @@ export default function Navbar(props) {
                 </div>
                 <div>
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl" style={{ fontFamily: "Inter", position: "inherit", backgroundColor: "#6066d1" }} onClick={handleLogout}>
-                    Log Out
+                    Log out
                   </button>
                 </div>
 
