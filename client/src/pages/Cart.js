@@ -50,13 +50,18 @@ export default function Cart() {
 
   const decrement = async (event) => {
     let curr = parseInt(event.currentTarget.id);
-    try {
-      const res = await updateItemAPI(curr, -1)
-      qty.set(curr, res.data.count);
-    } catch {
-      console.log("Error while updating item.");
-    }
-    getOrder();
+    axios
+      .post(`${process.env.REACT_APP_API_BASE_URL}/item/updateItem`, {
+        params: {
+          email: localStorage.getItem("currUser"),
+          id: curr,
+          type: -1,
+        },
+      })
+      .then((res) => {
+        qty.set(curr, res.data.count);
+        getOrder();
+      });
   };
   const handleRemove = async (event) => {
     let curr = parseInt(event.currentTarget.id);
@@ -78,7 +83,7 @@ export default function Cart() {
     });
     try {
       const res = await addOrderAPI().then();
-      navigate("/myorder", { state: { data: data, key: res.data } });
+      navigate("/payment", { state: { data: data, key: res.data } });
     } catch {
       console.log("Error while adding order details.");
     }

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "../App.css";
-import NavBar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Background from "../components/Background";
-import BeatLoader from "react-spinners/ClipLoader";
-import axios from "axios";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import BeatLoader from "react-spinners/ClipLoader";
+import "../App.css";
 import {
-  getUserCartItemsAPI,
-  getItemsMenuAPI,
   addItemAPI,
+  getItemsMenuAPI,
+  getUserCartItemsAPI,
   removeItemAPI
 } from "../api/itemApi";
+import Background from "../components/Background";
+import Footer from "../components/Footer";
+import NavBar from "../components/Navbar";
 
 let currOrder = [];
 
@@ -179,7 +178,7 @@ export default function Home() {
                     </span>
                     <button
                       id={item.id}
-                      className="text-white font-bold py-2 px-4 rounded-3xl"
+                      className="text-white  py-2 px-4 rounded-3xl"
                       style={{
                         backgroundColor: currOrder.includes(item.id)
                           ? "#f21b1b"
