@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <>
       <footer
-        className="bg-gray-800 text-center dark:bg-secondary-600 h-40 md:h-32"
+        className="bg-gray-800 text-center dark:bg-secondary-600 h-70 md:h-28"
         style={{ fontFamily: "DM Sans" }}
       >
         {/*Sign-up form section*/}

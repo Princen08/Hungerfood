@@ -25,13 +25,13 @@ export default function Order() {
             fontFamily: "DM Sans",
             display: "flex",
             flexDirection: "column",
-            gap: 10,
+            gap: 2,
             justifyContent: "center",
             alignItems: "center",
             marginTop: "6rem",
           }}
         >
-          <h2 className="font-bold">
+          <h2 className="font-bold ml-24 sm:ml-0">
             Your QR Code for Order ID: {location.state.key}
           </h2>
           <QRCode
