@@ -127,7 +127,7 @@ export default function Home() {
     );
   };
   const handleLoad = (index) => {
-    console.log("Hi");
+    // console.log("Hi");
   };
   return (
     <>
@@ -175,7 +175,7 @@ export default function Home() {
                 style={{ fontFamily: "Inter" }}
               >
                 <span>
-                  {/* <div id = {index} class="flex items-center justify-center ml-3 mt-4 w-11/12 h-48 bg-gray-300 rounded sm:w-11/12 dark:bg-gray-700">
+                  <div id = {index} class="flex items-center justify-center ml-3 mt-4 w-11/12 h-48 bg-gray-300 rounded sm:w-11/12 dark:bg-gray-700">
                     <svg
                       class="w-10 h-10 text-gray-200 dark:text-gray-600"
                       aria-hidden="true"
@@ -185,12 +185,13 @@ export default function Home() {
                     >
                       <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
                     </svg>
-                  </div> */}
-                  <LazyLoadImage onLoad={handleLoad(index)}
+                  </div>
+                  
+                   <LazyLoadImage onLoad={handleLoad(index)}
                     className="p-8 rounded-t-lg"
                     alt="product"
                     src={item?.src} // use normal <img> attributes as props
-                  />
+                  /> 
                 </span>
                 <div className="px-5 pb-5">
                   <span>
