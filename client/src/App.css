@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+body {
+  overflow: visible !important;
+}
+
 .count {
   position: absolute;
   top: 0;
@@ -119,7 +123,7 @@
 
 .landing-page .text-wrapper {
   color: #333333;
-  font-family: "Poppins-Regular", Helvetica;
+  /* font-family: "Poppins-Regular", Helvetica; */
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
@@ -154,7 +158,7 @@
 
 .landing-page .text-wrapper-2 {
   color: #333333;
-  font-family: "Poppins-Bold", Helvetica;
+  /* font-family: "Poppins-Bold", Helvetica; */
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0;
@@ -176,7 +180,7 @@
 
 .landing-page .text-wrapper-3 {
   color: #000000;
-  font-family: "Poppins-Medium", Helvetica;
+  /* font-family: "Poppins-Medium", Helvetica; */
   font-size: 36px;
   font-weight: 500;
   letter-spacing: 0;
@@ -188,7 +192,7 @@
 
 .landing-page .p {
   color: #616161;
-  font-family: "Poppins-Medium", Helvetica;
+  /* font-family: "Poppins-Medium", Helvetica; */
   font-size: 17px;
   font-weight: 500;
   letter-spacing: 0;
@@ -210,7 +214,7 @@
 
 .landing-page .text-wrapper-4 {
   color: #ffffff;
-  font-family: "Poppins-Bold", Helvetica;
+  /* font-family: "Poppins-Bold", Helvetica; */
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 1.28px;

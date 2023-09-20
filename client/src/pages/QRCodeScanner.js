@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { QrReader } from "react-qr-reader";
-export default function QRCoder() {
+export default function QRCodeScanner() {
   const [data, setData] = useState("");
   const videoRef = useRef(null);
 

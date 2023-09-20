@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BeatLoader from "react-spinners/ClipLoader";
 import "../App.css";
-import { getUserCartItemsAPI, removeItemAPI, updateItemAPI } from "../api/itemApi";
+import {
+  getUserCartItemsAPI,
+  removeItemAPI,
+  updateItemAPI,
+} from "../api/itemApi";
 import { addOrderAPI } from "../api/orderApi";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar.js";
@@ -14,18 +18,17 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState([]);
   const [totalAmt, setTotalAmt] = useState(0);
-
   async function getOrder() {
     currOrder = [];
     try {
       const res = await getUserCartItemsAPI();
       setSelectedItem(res.data);
+      setLoading(false);
     } catch {
       console.log("Error while fetching data.");
     }
   }
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
     getOrder();
   }, []);
   useEffect(() => {
@@ -40,7 +43,9 @@ export default function Cart() {
   const increment = async (event) => {
     let curr = parseInt(event.currentTarget.id);
     try {
-      const res = await updateItemAPI(curr, 1)
+      let prevCount = qty.get(curr);
+      qty.set(curr, prevCount + 1);
+      const res = await updateItemAPI(curr, 1);
       qty.set(curr, res.data.count);
     } catch {
       console.log("Error while updating item.");
@@ -50,18 +55,16 @@ export default function Cart() {
 
   const decrement = async (event) => {
     let curr = parseInt(event.currentTarget.id);
-    axios
-      .post(`${process.env.REACT_APP_API_BASE_URL}/item/updateItem`, {
-        params: {
-          email: localStorage.getItem("currUser"),
-          id: curr,
-          type: -1,
-        },
-      })
-      .then((res) => {
-        qty.set(curr, res.data.count);
-        getOrder();
-      });
+    try {
+      let prevCount = qty.get(curr);
+      if (prevCount != 1) {
+        qty.set(curr, prevCount - 1);
+      }
+      const res = await updateItemAPI(curr, -1);
+    } catch {
+      console.log("Error while updating item.");
+    }
+    getOrder();
   };
   const handleRemove = async (event) => {
     let curr = parseInt(event.currentTarget.id);
@@ -82,8 +85,10 @@ export default function Cart() {
       });
     });
     try {
-      const res = await addOrderAPI().then();
-      navigate("/payment", { state: { data: data, key: res.data } });
+      const res = await addOrderAPI();
+      navigate("/payment", {
+        state: { data: data, key: res.data, amount: totalAmt },
+      });
     } catch {
       console.log("Error while adding order details.");
     }
@@ -134,7 +139,7 @@ export default function Cart() {
                         <div className="flex items-center">
                           <span
                             id={item.id}
-                            className="cursor-pointer rounded-l bg-red-600 text-white py-1 px-3.5 "
+                            className="cursor-pointer rounded-l bg-red-500  focus:bg-red-600 text-white py-1 px-3.5 "
                             style={{ userSelect: "none" }}
                             onClick={decrement}
                           >

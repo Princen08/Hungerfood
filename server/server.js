@@ -26,7 +26,6 @@ app.use("/order", orderRouter);
 const paymentRouter = require("./routes/paymentRouter");
 app.use("/payment", paymentRouter);
 
-
 app.get("/", (req, res) => {
   res.json("Hello");
 });

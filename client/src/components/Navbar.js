@@ -1,8 +1,7 @@
 import React from "react";
-import { ReactComponent as Logo } from "../assets/logo.svg";
+import { ReactComponent as Logo } from "../assets/Logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
@@ -101,18 +100,18 @@ export default function Navbar(props) {
                     onClick={handleClick}
                   />
                   {props.count > 0 && (
-                    <span className="count" style={{ marginTop: "0.6rem" }}>
+                    <span className="count" style={{ marginTop: "0.6rem", cursor:"pointer" }}>
                       {props.count}
                     </span>
                   )}
                 </div>
                 <div>
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl"
+                    className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-3xl"
                     style={{
                       fontFamily: "Inter",
                       position: "inherit",
-                      backgroundColor: "#6066d1",
+                      // backgroundColor: "#6066d1",
                     }}
                     onClick={handleLogout}
                   >

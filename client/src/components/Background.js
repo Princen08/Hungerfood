@@ -2,9 +2,15 @@ import React from "react";
 // import { Image } from "./Image";
 import "../App.css";
 
-export default function Background() {
+export default function Background(props) {
+  const handleClick = () => {
+    window.scrollTo({
+      top: props.data.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
   return (
-    <div className="landing-page w-screen ">
+    <div className="landing-page w-full0" style={{fontFamily:"poppins"}}>
       <div className="div">
         <div className="overlap-group">
           <div className="ellipse hidden sm:block" />
@@ -15,18 +21,14 @@ export default function Background() {
               Delight your taste buds with our culinary creations. Explore
               flavors, savor moments.
             </p>
-            <div className="div-wrapper bg-blue-500">
-              <div className="text-wrapper-4">Buy Now</div>
+            <div className="div-wrapper bg-blue-500 hover:bg-blue-800">
+              <button className="text-wrapper-4" onClick={handleClick}>
+                Buy Now
+              </button>
             </div>
           </div>
-          {/* <div className="mb-8">
-            <img
-              style={{ scale: "0.2", marginBottom: "10rem" }}
-              src={require("../assets/img1.png")}
-            ></img>
-          </div> */}
         </div>
-        <div className="frame-2" />
+        <div className="frame-2"></div>
       </div>
     </div>
   );
