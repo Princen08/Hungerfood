@@ -174,7 +174,7 @@ export default function Home() {
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}
               >
-                {!isImageLoaded.get(item.id) && (
+                {/* {!isImageLoaded.get(item.id) && (
                   <div
                     role="status"
                     class="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
@@ -191,7 +191,7 @@ export default function Home() {
                       </svg>
                     </div>
                   </div>
-                )}
+                )} */}
                 <LazyLoadImage
                   style={{
                     display: isImageLoaded.get(item.id) ? "block" : "none",
