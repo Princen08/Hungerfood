@@ -1,7 +1,7 @@
 import QRCode from "react-qr-code";
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import BeatLoader from "react-spinners/ClipLoader";
+import SyncLoader from "react-spinners/SyncLoader";
 import { useState, useEffect } from "react";
 
 export default function Order() {
@@ -16,7 +16,7 @@ export default function Order() {
       <Navbar></Navbar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <BeatLoader size={70} loading={loading} color="blue" />
+          <SyncLoader loading={loading} color="#4287f5" />
         </div>
       )}
       {!loading && (

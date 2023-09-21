@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-import BeatLoader from "react-spinners/ClipLoader";
+import SyncLoader from "react-spinners/SyncLoader";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import FloatingButton from "../components/FloatingButton";
 import "../App.css";
@@ -131,10 +131,10 @@ export default function Home() {
   };
   return (
     <>
-      <NavBar count={currOrder.length}></NavBar>
+      <NavBar count={currOrder.length} current = {"Home"}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <BeatLoader size={70} loading={loading} color="blue" />
+          <SyncLoader color="#4287f5" loading = {loading}/>
         </div>
       )}
       {!loading && (

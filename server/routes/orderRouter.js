@@ -15,4 +15,12 @@ router.post("/addOrder", async (req, res) => {
   res.send(order._id);
 });
 
+router.get("/getOrder", async (req, res) => {
+  const email = req.query.email;
+  const collected = false;
+  OrderHistory.find({ email: email, collected: collected}).then(function (data, docs) {
+    res.send(data);
+  });
+});
+
 module.exports = router;

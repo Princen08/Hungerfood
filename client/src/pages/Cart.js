@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BeatLoader from "react-spinners/ClipLoader";
+import SyncLoader from "react-spinners/SyncLoader";
 import "../App.css";
+import toast, { Toaster } from "react-hot-toast";
 import {
   getUserCartItemsAPI,
   removeItemAPI,
@@ -70,6 +71,7 @@ export default function Cart() {
     let curr = parseInt(event.currentTarget.id);
     try {
       await removeItemAPI(curr);
+      toast.success("Item removed successfully.")
     } catch {
       console.log("Error while removing item");
     }
@@ -98,10 +100,10 @@ export default function Cart() {
       <NavBar count={selectedItem.length}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <BeatLoader size={70} loading={loading} color="blue" />
+          <SyncLoader loading={loading} color="#4287f5" />
         </div>
       )}
-
+      <Toaster position="top-center" reverseOrder={false} />
       {/* <Modal  data = {selectedItem}/> */}
       {!loading && (
         <div style={{ fontFamily: "Inter" }}>

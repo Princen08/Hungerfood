@@ -13,3 +13,19 @@ export const addOrderAPI = async () => {
     return err;
   }
 };
+
+export const getOrderAPI = async () => {
+  try {
+    const res = axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/order/getOrder`,
+      {
+        params: {
+          email: localStorage.getItem("currUser"),
+        },
+      }
+    );
+    return res;
+  } catch (err) {
+    return err;
+  }
+};

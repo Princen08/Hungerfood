@@ -14,7 +14,7 @@ export default function Footer() {
             <div className="gird-cols-1 grid items-center justify-center gap-4 md:grid-cols-3">
               <div className="md:mb-6 md:ml-auto">
                 <p className="text-white dark:text-secondary-200">
-                  <strong>Sign up for our newsletter</strong>
+                  <p>Sign up for our newsletter</p>
                 </p>
               </div>
               <div className="relative md:mb-6" data-te-input-wrapper-init>

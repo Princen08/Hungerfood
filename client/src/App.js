@@ -7,6 +7,8 @@ import Cart from "./pages/Cart.js";
 import QRCodeScanner from "./pages/QRCodeScanner.js";
 import Order from "./pages/Order.js";
 import Payment from "./pages/Payment.js";
+import MyOrders
+ from "./pages/MyOrders.js";
 export default function App() {
   return (
     <>
@@ -17,7 +19,8 @@ export default function App() {
           <Route path="/verify" element={<Verify />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/qrcode" element={<QRCodeScanner />} />
-          <Route path="/myorder" element={<Order />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/myorders" element={<MyOrders />} />
           <Route path="/payment" element={<Payment />} />
         </Routes>
       </BrowserRouter>

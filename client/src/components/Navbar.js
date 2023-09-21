@@ -22,7 +22,8 @@ export default function Navbar(props) {
   const handleHome = () => {
     navigate("/home");
   };
-  let navigation = [{ name: "Home", href: "/home", current: true }];
+  let navigation = [{ name: "Home", href: "/home"},
+  { name: "My Orders", href: "/myorders" },];
   return (
     <Disclosure
       as="nav"
@@ -72,10 +73,9 @@ export default function Navbar(props) {
                     {navigation.map((item) => (
                       <a
                         key={item.name}
-                        // href={item.href}
-                        onClick={handleHome}
+                        href={item.href}
                         className={classNames(
-                          item.current
+                          props.current === item.name
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
@@ -131,8 +131,8 @@ export default function Navbar(props) {
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  // href={item.href}
-                  onClick={handleHome}
+                  href={item.href}
+                  // onClick={handleHome}
                   className={classNames(
                     item.current
                       ? "bg-gray-900 text-white"

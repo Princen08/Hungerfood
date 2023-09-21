@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userSignUpAPI } from "../api/authApi";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Verify() {
   const location = useLocation();
@@ -30,7 +31,7 @@ export default function Verify() {
       localStorage.setItem("currUser", location.state.email);
       navigate("/home");
     } else {
-      console.log("OTP does not match.");
+      toast.error("OTP does not match. Please try again!")
     }
   };
   return (
@@ -39,6 +40,7 @@ export default function Verify() {
         className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12"
         style={{ fontFamily: "DM Sans" }}
       >
+        <Toaster position="top-center" reverseOrder={false} />
         <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
           <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
             <div className="flex flex-col items-center justify-center text-center space-y-2">
@@ -99,17 +101,6 @@ export default function Verify() {
                       <button className="flex flex-row items-center justify-center text-center w-full border rounded-3xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm">
                         Verify Account
                       </button>
-                    </div>
-                    <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
-                      <p>Didn't recieve code?</p>{" "}
-                      <a
-                        className="flex flex-row items-center text-blue-600"
-                        href="http://"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Resend
-                      </a>
                     </div>
                   </div>
                 </div>
