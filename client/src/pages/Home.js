@@ -100,7 +100,7 @@ export default function Home() {
 
   useEffect(() => {
     getMenu();
-    console.log(localStorage.getItem("currUser"));
+    // console.log(localStorage.getItem("currUser"));
   }, []);
 
   const handleOnSearch = (string, results) => {

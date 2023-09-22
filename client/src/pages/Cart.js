@@ -87,7 +87,7 @@ export default function Cart() {
       });
     });
     try {
-      const res = await addOrderAPI();
+      const res = await addOrderAPI(data);
       navigate("/payment", {
         state: { data: data, key: res.data, amount: totalAmt },
       });

@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+const subDataSchema = new mongoose.Schema({
+   id: Number,
+   count: Number
+});
 const ReactFormDataSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -9,6 +13,7 @@ const ReactFormDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  items:[subDataSchema],
   collected: {
     type: Boolean,
     required: true,

@@ -30,7 +30,7 @@ export default function Payment() {
                 console.log("Error while removing item");
               }
             });
-            navigate("/myorder", { state: { data: location.state.data, key: location.state.key}});
+            navigate("/order", { state: { data: location.state.data, key: location.state.key}});
           } else {
             console.log("Payement failed")
           }
