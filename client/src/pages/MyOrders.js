@@ -36,10 +36,10 @@ export default function MyOrders() {
         <div className="mt-20" style={{ fontFamily: "poppins" }}>
           {ordersList &&
             ordersList.map((order, index) => (
-              <div className="justify-between mb-6 mx-16 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
+              <div className="justify-between mb-6 mx-12 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                   <div className="mt-5 sm:mt-0">
-                    <h2 className="text-lg font-bold text-gray-900">
+                    <h2 className="text-lg font-bold text-gray-900 break-words">
                       Order Id: {order._id}
                     </h2>
                     <p className="mt-1 text-l text-gray-700">
