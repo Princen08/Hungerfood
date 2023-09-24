@@ -16,6 +16,22 @@ export const getUserCartItemsAPI = async () => {
   }
 };
 
+export const getItem = async (id) => {
+  try {
+    const res = axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/item/getItem`,
+      {
+        params: {
+          id: id,
+        },
+      }
+    );
+    return res;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const getItemsMenuAPI = async () => {
   try {
     const res = axios.get(

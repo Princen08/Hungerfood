@@ -12,7 +12,6 @@ import {
 import { addOrderAPI } from "../api/orderApi";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar.js";
-let currOrder = [];
 const qty = new Map();
 export default function Cart() {
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ export default function Cart() {
   const [selectedItem, setSelectedItem] = useState([]);
   const [totalAmt, setTotalAmt] = useState(0);
   async function getOrder() {
-    currOrder = [];
     try {
       const res = await getUserCartItemsAPI();
       setSelectedItem(res.data);
@@ -46,8 +44,7 @@ export default function Cart() {
     try {
       let prevCount = qty.get(curr);
       qty.set(curr, prevCount + 1);
-      const res = await updateItemAPI(curr, 1);
-      qty.set(curr, res.data.count);
+      await updateItemAPI(curr, 1);
     } catch {
       console.log("Error while updating item.");
     }
@@ -61,7 +58,7 @@ export default function Cart() {
       if (prevCount != 1) {
         qty.set(curr, prevCount - 1);
       }
-      const res = await updateItemAPI(curr, -1);
+      await updateItemAPI(curr, -1);
     } catch {
       console.log("Error while updating item.");
     }
@@ -71,11 +68,12 @@ export default function Cart() {
     let curr = parseInt(event.currentTarget.id);
     try {
       await removeItemAPI(curr);
+      console.log(selectedItem)
+      setSelectedItem((current) => current.filter((order) => order.id !== curr));
       toast.success("Item removed successfully.")
     } catch {
       console.log("Error while removing item");
     }
-    getOrder();
   };
 
   const handleCheckOut = async () => {

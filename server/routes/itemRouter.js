@@ -42,7 +42,7 @@ router.get("/getCartItems", async (req, res) => {
 router.post("/removeItem", async (req, res) => {
   const id = req.body.id;
   const email = req.body.email;
-  Order.deleteMany({ id: id, email: email }).then(function (data, docs) {
+  Order.deleteOne({ id: id, email: email }).then(function (data, docs) {
     res.send("Delete Successfully");
   });
 });
@@ -61,5 +61,11 @@ router.post("/updateItem", async (req, res) => {
     res.send({ count: 1 });
   }
 });
+
+router.get("/getItem", async (req, res) => {
+  Item.find({ id: req.query.id }).then(function (data, docs) {
+    res.send(data);
+  });
+})
 
 module.exports = router;

@@ -9,6 +9,7 @@ import {
   getItemsMenuAPI,
   getUserCartItemsAPI,
   removeItemAPI,
+  getItem,
 } from "../api/itemApi";
 import Background from "../components/Background";
 import Footer from "../components/Footer";
@@ -57,22 +58,17 @@ export default function Home() {
       event.currentTarget.innerText = "Remove";
       event.currentTarget.style.backgroundColor = "#f21b1b";
       try {
-        const res = await getItemsMenuAPI();
-        for (let i = 0; i < res.data.length; i++) {
-          if (res.data[i].id === curr) {
-            try {
-              await addItemAPI(
-                curr,
-                res.data[i].name,
-                res.data[i].price,
-                res.data[i].category,
-                res.data[i].src
-              );
-            } catch {
-              console.log("Error while adding item.");
-            }
-            break;
-          }
+        const res = await getItem(curr);
+        try {
+          await addItemAPI(
+            curr,
+            res.data[0].name,
+            res.data[0].price,
+            res.data[0].category,
+            res.data[0].src
+          );
+        } catch {
+          console.log("Error while adding item.");
         }
       } catch (err) {
         console.log("Error while fetching data.");
@@ -83,24 +79,21 @@ export default function Home() {
       event.currentTarget.style.backgroundColor = "#2472f0";
       setSelectedItem((current) => current.filter((order) => order !== curr));
       try {
+        let index = currOrder.indexOf(curr); // Find the index of the element
+        if (index !== -1) {
+          currOrder.splice(index, 1); // Remove the element at the found index
+        }
         await removeItemAPI(curr);
       } catch {
         console.log("Error while removing item.");
       }
-      let index = currOrder.indexOf(curr); // Find the index of the element
-      if (index !== -1) {
-        currOrder.splice(index, 1); // Remove the element at the found index
-      }
     }
   };
   useEffect(() => {
-    // setTimeout(() => setLoading(false), 1500);
     getOrder();
   }, []);
-
   useEffect(() => {
     getMenu();
-    // console.log(localStorage.getItem("currUser"));
   }, []);
 
   const handleOnSearch = (string, results) => {
@@ -131,10 +124,10 @@ export default function Home() {
   };
   return (
     <>
-      <NavBar count={currOrder.length} current = {"Home"}></NavBar>
+      <NavBar count={currOrder.length} current={"Home"}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <SyncLoader color="#4287f5" loading = {loading}/>
+          <SyncLoader color="#4287f5" loading={loading} />
         </div>
       )}
       {!loading && (
