@@ -211,7 +211,7 @@ export default function Cart() {
               </div>
             )}
           </div>
-          <div className="h-40 md:h-28" style={{ position: "fixed", bottom: 0, width: "100%" }}>
+          <div className="h-40 md:h-28">
             <Footer></Footer>
           </div>
         </div>

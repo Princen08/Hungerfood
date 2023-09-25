@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import SyncLoader from "react-spinners/SyncLoader";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 export default function MyOrders() {
   const [loading, setLoading] = useState(true);
@@ -91,6 +92,9 @@ export default function MyOrders() {
             ))}
         </div>
       )}
+      <div className="h-40 md:h-28">
+            <Footer></Footer>
+          </div>
     </>
   );
 }
