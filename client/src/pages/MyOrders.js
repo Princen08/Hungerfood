@@ -6,9 +6,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
+
 export default function MyOrders() {
   const [loading, setLoading] = useState(true);
   const [ordersList, setOrderList] = useState([]);
+  const [showDetail, setShowDeatils] = useState(false);
   const navigate = useNavigate();
   const getOrders = async () => {
     const res = await getOrderAPI();
@@ -24,7 +26,9 @@ export default function MyOrders() {
       state: { data: orderDeatils, key: orderDeatils._id },
     });
   };
-  const showDetails = () => {};
+  const showDetails = () => {
+     setShowDeatils(!showDetail);
+  };
   return (
     <>
       <Navbar current={"My Orders"}></Navbar>
@@ -34,7 +38,7 @@ export default function MyOrders() {
         </div>
       )}
       {!loading && (
-        <div className="mt-20" style={{ fontFamily: "poppins" }}>
+        <div className="mt-20" style={{ fontFamily: "poppins", zIndex:10}}>
           {ordersList &&
             ordersList.map((order, index) => (
               <div className="justify-between mb-6 mx-12 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
@@ -44,7 +48,7 @@ export default function MyOrders() {
                       Order Id: {order._id}
                     </h2>
                     <p className="mt-1 text-l text-gray-700">
-                      Time: {order.timestamp.replaceAll('/', '-')}
+                      Time: {order.timestamp.replaceAll("/", "-")}
                     </p>
                   </div>
                   <div className="mt-4 flex  sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
@@ -93,8 +97,8 @@ export default function MyOrders() {
         </div>
       )}
       <div className="h-40 md:h-28">
-            <Footer></Footer>
-          </div>
+        <Footer></Footer>
+      </div>
     </>
   );
 }

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
@@ -40,6 +39,7 @@ export default function Cart() {
   }, [selectedItem]);
 
   const increment = async (event) => {
+    console.log("Y")
     let curr = parseInt(event.currentTarget.id);
     try {
       let prevCount = qty.get(curr);
@@ -55,7 +55,7 @@ export default function Cart() {
     let curr = parseInt(event.currentTarget.id);
     try {
       let prevCount = qty.get(curr);
-      if (prevCount != 1) {
+      if (prevCount !== 1) {
         qty.set(curr, prevCount - 1);
       }
       await updateItemAPI(curr, -1);
@@ -68,9 +68,11 @@ export default function Cart() {
     let curr = parseInt(event.currentTarget.id);
     try {
       await removeItemAPI(curr);
-      console.log(selectedItem)
-      setSelectedItem((current) => current.filter((order) => order.id !== curr));
-      toast.success("Item removed successfully.")
+      console.log(selectedItem);
+      setSelectedItem((current) =>
+        current.filter((order) => order.id !== curr)
+      );
+      toast.success("Item removed successfully.");
     } catch {
       console.log("Error while removing item");
     }
@@ -117,7 +119,7 @@ export default function Cart() {
             <div className="rounded-lg mb-32 md:w-2/3 ">
               {selectedItem &&
                 selectedItem.map((item, index) => (
-                  <div className="justify-between mb-6 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
+                  <div className="justify-between mb-6 rounded-lg  p-6 shadow-md sm:flex sm:justify-start">
                     <img
                       src={item?.src}
                       alt="product"
@@ -137,7 +139,40 @@ export default function Cart() {
                       </div>
                       <div className="mt-4 flex  sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center">
-                          <span
+                          <div style={{scale:0.8}}>
+                            <label for="Quantity" class="sr-only">
+                              {" "}
+                              Quantity{" "}
+                            </label>
+
+                            <div class="flex items-center border border-gray-200 rounded">
+                              <button
+                              id={item.id}
+                              onClick={decrement}
+                                type="button"
+                                class="w-10 h-10 bg-red-500 leading-10 text-white rounded transition hover:opacity-75"
+                              >
+                                &minus;
+                              </button>
+
+                              <input
+                                type="number"
+                                id="Quantity"
+                                value={qty.get(item.id)}
+                                class="h-10 w-16 border-transparent rounded text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
+                              />
+
+                              <button onClick={increment}
+                                type="button"
+                                id={item.id}
+                                class="w-10 h-10 leading-10 bg-green-500 text-white rounded transition hover:opacity-75"
+                              >
+                                <span>&#43;</span>
+
+                              </button>
+                            </div>
+                          </div>
+                          {/* <span
                             id={item.id}
                             className="cursor-pointer rounded-l bg-red-500  focus:bg-red-600 text-white py-1 px-3.5 "
                             style={{ userSelect: "none" }}
@@ -160,7 +195,7 @@ export default function Cart() {
                           >
                             {" "}
                             +{" "}
-                          </span>
+                          </span> */}
                         </div>
                         <div className="flex items-center space-x-4">
                           <p className="text-sm ml-2">

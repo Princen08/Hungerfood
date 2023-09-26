@@ -145,7 +145,7 @@ export default function Auth() {
                     className="pl-2 outline-none border-none"
                     id="email"
                     value={email}
-                    pattern="[a-zA-z0-9]+@nirmauni\.ac\.in$"
+                    pattern="[a-zA-z0-9.]+@nirmauni\.ac\.in$"
                     title="Use Nirma e-mail id only."
                     onChange={(e) => setEmail(e.target.value)}
                     name="email"
@@ -228,7 +228,7 @@ export default function Auth() {
                     className="pl-2 outline-none border-none"
                     id="email"
                     value={email}
-                    pattern="[a-zA-z0-9]+@nirmauni\.ac\.in$"
+                    pattern="[a-zA-z0-9.]+@nirmauni\.ac\.in$"
                     title="Use Nirma e-mail id only."
                     onChange={(e) => setEmail(e.target.value)}
                     name="email"
