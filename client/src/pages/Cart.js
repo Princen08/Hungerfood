@@ -145,7 +145,7 @@ export default function Cart() {
                               Quantity{" "}
                             </label>
 
-                            <div class="flex items-center border border-gray-200 rounded">
+                            <div class="flex items-center rounded">
                               <button
                               id={item.id}
                               onClick={decrement}
@@ -159,7 +159,7 @@ export default function Cart() {
                                 type="number"
                                 id="Quantity"
                                 value={qty.get(item.id)}
-                                class="h-10 w-16 border-transparent rounded text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
+                                class="h-10 w-12 border-2 border-slate-200 rounded text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                               />
 
                               <button onClick={increment}
@@ -172,30 +172,6 @@ export default function Cart() {
                               </button>
                             </div>
                           </div>
-                          {/* <span
-                            id={item.id}
-                            className="cursor-pointer rounded-l bg-red-500  focus:bg-red-600 text-white py-1 px-3.5 "
-                            style={{ userSelect: "none" }}
-                            onClick={decrement}
-                          >
-                            {" "}
-                            -{" "}
-                          </span>
-                          <span
-                            className="h-8 w-8 border-2 bg-white text-center text-xs outline-none justify-between pt-2"
-                            style={{ userSelect: "none" }}
-                          >
-                            {qty.get(item.id)}
-                          </span>
-                          <span
-                            id={item.id}
-                            className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 bg-green-600 text-white"
-                            style={{ userSelect: "none" }}
-                            onClick={increment}
-                          >
-                            {" "}
-                            +{" "}
-                          </span> */}
                         </div>
                         <div className="flex items-center space-x-4">
                           <p className="text-sm ml-2">

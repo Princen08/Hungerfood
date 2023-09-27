@@ -27,7 +27,7 @@ export default function Navbar(props) {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-800 z-20"
+      className="bg-gray-900 z-20"
       style={{ fontFamily: "Inter", position: "fixed", top: 0, width: "100%" }}
     >
       {({ open }) => (
@@ -78,7 +78,7 @@ export default function Navbar(props) {
                           props.current === item.name
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
+                          "rounded-2xl px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
@@ -125,7 +125,7 @@ export default function Navbar(props) {
           <Disclosure.Panel className="sm:hidden">
             <div
               className="space-y-1 px-2 pb-3 pt-2"
-              style={{ fontFamily: "poppins" }}
+              style={{ fontFamily: "Inter" }}
             >
               {navigation.map((item) => (
                 <Disclosure.Button

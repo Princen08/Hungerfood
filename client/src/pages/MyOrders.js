@@ -26,8 +26,11 @@ export default function MyOrders() {
       state: { data: orderDeatils, key: orderDeatils._id },
     });
   };
-  const showDetails = () => {
-     setShowDeatils(!showDetail);
+  const showDetails = (orderDeatils) => {
+    console.log(orderDeatils)
+    navigate("/details", {
+      state: { data: orderDeatils, key: orderDeatils._id },
+    });
   };
   return (
     <>
@@ -38,7 +41,7 @@ export default function MyOrders() {
         </div>
       )}
       {!loading && (
-        <div className="mt-20" style={{ fontFamily: "poppins", zIndex:10}}>
+        <div className="mt-20" style={{ fontFamily: "Inter", zIndex:10}}>
           {ordersList &&
             ordersList.map((order, index) => (
               <div className="justify-between mb-6 mx-12 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">

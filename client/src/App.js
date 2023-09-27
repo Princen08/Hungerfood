@@ -9,6 +9,8 @@ import Order from "./pages/Order.js";
 import Payment from "./pages/Payment.js";
 import MyOrders
  from "./pages/MyOrders.js";
+import DetailsList from "./components/DetailsList.js";
+
 export default function App() {
   return (
     <>
@@ -22,6 +24,7 @@ export default function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/details" element={<DetailsList />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -4,9 +4,9 @@ import "../App.css";
 export default function Footer() {
   return (
     <>
-      <footer class="flex flex-col space-y-10 justify-center m-10" style={{fontFamily:"DM Sans"}}>
+      <footer class="flex flex-col space-y-10 justify-center m-10 border-t-2" style={{fontFamily:"Inter"}}>
     
-        <div class="flex justify-center space-x-5">
+        <div class="flex justify-center space-x-5 mt-4">
           <a
             href="https://facebook.com"
             target="_blank"

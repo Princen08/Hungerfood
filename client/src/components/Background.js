@@ -10,7 +10,7 @@ export default function Background(props) {
     });
   };
   return (
-    <div className="landing-page w-full0" style={{fontFamily:"poppins"}}>
+    <div className="landing-page w-full0" style={{fontFamily:"Inter"}}>
       <div className="div">
         <div className="overlap-group">
           <div className="ellipse hidden sm:block" />
