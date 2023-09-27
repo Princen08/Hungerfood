@@ -22,7 +22,7 @@ export default function Order() {
       {!loading && (
         <div
           style={{
-            fontFamily: "DM Sans",
+            fontFamily: "Inter",
             display: "flex",
             flexDirection: "column",
             gap: 2,

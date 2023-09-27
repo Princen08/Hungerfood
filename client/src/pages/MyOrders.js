@@ -44,7 +44,7 @@ export default function MyOrders() {
         <div className="mt-20" style={{ fontFamily: "Inter", zIndex:10}}>
           {ordersList &&
             ordersList.map((order, index) => (
-              <div className="justify-between mb-6 mx-12 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
+              <div className="justify-between mb-2 mx-12 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                   <div className="mt-5 sm:mt-0">
                     <h2 className="text-lg font-bold text-gray-900 break-words">
@@ -54,8 +54,8 @@ export default function MyOrders() {
                       Time: {order.timestamp.replaceAll("/", "-")}
                     </p>
                   </div>
-                  <div className="mt-4 flex  sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                    <div className="flex items-center gap-4">
+                  <div className="mt-4 flex  sm:space-y-2 sm:mt-0 sm:block sm:space-x-6">
+                    <div className="flex items-center gap-4 mt-3">
                       <button
                         className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-3xl"
                         style={{

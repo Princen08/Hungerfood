@@ -80,7 +80,7 @@ export default function Auth() {
       )}
       <Toaster position="top-center" reverseOrder={false} />
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="h-screen md:flex" style={{ fontFamily: "DM Sans" }}>
+      <div className="h-screen md:flex" style={{ fontFamily: "Inter" }}>
         <div className="relative overflow-hidden md:flex w-2/5 bg-blue-600 i justify-around items-center hidden">
           <div>
             <Logo style={{ marginBottom: "35rem" }}></Logo>
