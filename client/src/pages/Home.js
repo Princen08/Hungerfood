@@ -14,14 +14,15 @@ import {
 import Background from "../components/Background";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
+import ImageSkeleton from "../components/ImageSkeleton";
 
 let currOrder = [];
-const isImageLoaded = new Map();
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [itemList, setItemList] = useState([]);
   const [searchResultList, setSearchResultList] = useState(itemList);
   const [selectedItem, setSelectedItem] = useState([]);
+  const [isImageLoaded, setIsImageLoaded] = useState(new Map());
   const mainSection = useRef(null);
   async function getOrder() {
     currOrder = [];
@@ -119,9 +120,7 @@ export default function Home() {
       </>
     );
   };
-  const handleLoad = (index) => {
-    isImageLoaded.set(index, true);
-  };
+  
   return (
     <>
       <NavBar count={currOrder.length} current={"Home"}></NavBar>
@@ -167,48 +166,11 @@ export default function Home() {
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}
               >
-                {/* {!isImageLoaded.get(item.id) && (
-                  <div
-                    role="status"
-                    class="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
-                  >
-                    <div class="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
-                      <svg
-                        class="w-10 h-10 text-gray-200 dark:text-gray-600"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 20 18"
-                      >
-                        <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
-                      </svg>
-                    </div>
-                  </div>
-                )} */}
-                <LazyLoadImage
-                  style={{
-                    display: isImageLoaded.get(item.id) ? "block" : "none",
-                  }}
-                  onLoad={handleLoad(item.id)}
+            <LazyLoadImage id = {item.id}
                   className="p-8 rounded-t-lg"
                   alt="product"
                   src={item?.src} // use normal <img> attributes as props
                 />
-                {/* <span>
-                  <div id = {index} class="flex items-center justify-center ml-3 mt-4 w-11/12 h-48 bg-gray-300 rounded sm:w-11/12 dark:bg-gray-700">
-                    <svg
-                      class="w-10 h-10 text-gray-200 dark:text-gray-600"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 18"
-                    >
-                      <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
-                    </svg>
-                  </div>
-                  
-                   
-                </span> */}
                 <div className="px-5 pb-5">
                   <span>
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
