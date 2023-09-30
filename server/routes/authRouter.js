@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/userSchema");
-var nodemailer = require("nodemailer");
+const jwt = require('jsonwebtoken');
+const nodemailer = require("nodemailer");
 
 router.post("/signup", async (req, res) => {
   const name = req.body.name;
@@ -22,13 +23,17 @@ router.post("/signin", async (req, res) => {
   const password = req.body.password;
   const user = await User.findOne({ email });
   if (!user) {
-    return res.send({ message: "User not found" });
+    return res.send({ auth: false });
   }
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
-    return res.send({ message: "Invalid password" });
+    return res.send({ auth: false });
   }
-  return res.send({ message: "User found" });
+  const id = user._id;
+  const token = jwt.sign({id}, "jwtSecret",{
+    expiresIn: 3000,
+  })
+  return res.send({auth: true, token: token, user: user});
 });
 
 router.post("/verify", async (req, res) => {

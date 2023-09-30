@@ -14,7 +14,8 @@ import {
 import Background from "../components/Background";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import ImageSkeleton from "../components/ImageSkeleton";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 let currOrder = [];
 export default function Home() {
@@ -121,6 +122,10 @@ export default function Home() {
     );
   };
   
+  const handleLoad = (event) => {
+    setIsImageLoaded(map => new Map(map.set(event.currentTarget?.id, true)));
+  }
+ 
   return (
     <>
       <NavBar count={currOrder.length} current={"Home"}></NavBar>
@@ -165,12 +170,15 @@ export default function Home() {
               <div
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}
-              >
-            <LazyLoadImage id = {item.id}
+              > 
+                <LazyLoadImage id = {item.id}
+                  // style={{display}}
+                  onLoad={handleLoad}
                   className="p-8 rounded-t-lg"
                   alt="product"
                   src={item?.src} // use normal <img> attributes as props
                 />
+                {/* {!isImageLoaded.get(item.id) && t && (<Skeleton square height={200} className="pt-2"></Skeleton>)} */}
                 <div className="px-5 pb-5">
                   <span>
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">

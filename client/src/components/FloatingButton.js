@@ -9,7 +9,7 @@ export default function FloatingButton() {
   return (
     <>
       <div className="group fixed bottom-0 right-0 p-2  flex items-end justify-end w-24 h-24 ">
-        <div className="cursor-pointer text-white shadow-xl flex items-center justify-center p-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 z-50 absolute" onClick={OpenQRScanner}>
+        <div className="cursor-pointer text-white shadow-xl flex items-center justify-center p-3 rounded-full bg-blue-500 z-50 absolute hover:bg-blue-700" onClick={OpenQRScanner}>
            <QRCodeScanner></QRCodeScanner>
         </div>
       </div>

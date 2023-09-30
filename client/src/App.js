@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/qrcode" element={<QRCodeScanner />} />
           <Route path="/order/:id" element={<Order />} />
           <Route path="/myorders" element={<MyOrders />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route path="/payment/:id" element={<Payment />} />
           <Route path="/details/:id" element={<DetailsList />} />
         </Routes>
       </BrowserRouter>

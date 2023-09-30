@@ -24,7 +24,7 @@ export const userSignInAPI = async (email, password) => {
         password: password,
       }
     );
-    return res.data.message;
+    return res.data;
   } catch (err) {
     return err;
   }
@@ -40,7 +40,7 @@ export const userSignUpAPI = async (name, email, password) => {
           password: password,
         }
       );
-      return res.data.message;
+      return res;
     } catch (err) {
       return err;
     }

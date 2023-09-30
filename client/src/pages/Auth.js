@@ -43,11 +43,12 @@ export default function Auth() {
   }
   async function handleSignIn() {
     const res = await userSignInAPI(email, password);
-    if (res === "User found") {
+    if (res.auth) {
+      localStorage.setItem("token","Bearer " + res.token);
       localStorage.setItem("currUser", email);
       navigate("/home", { state: { email: email } });
       setShowLoader(false);
-    } else if (res === "User not found" || res === "Invalid password") {
+    } else {
       toast.error("User is not valid. Please check email or password.");
       setShowLoader(false);
     }

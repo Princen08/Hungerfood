@@ -1,46 +1,77 @@
 import React from "react";
 import "../App.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faFacebook,
+  faLinkedin,
+  faFacebookMessenger,
+  faTwitter
+} from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
   return (
     <>
-      <footer class="flex flex-col space-y-10 justify-center m-10 border-t-2" style={{fontFamily:"Inter"}}>
-    
+      <footer
+        class="flex flex-col space-y-10 justify-center m-10 border-t-2"
+        style={{ fontFamily: "Inter" }}
+      >
         <div class="flex justify-center space-x-5 mt-4">
           <a
             href="https://facebook.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="https://img.icons8.com/fluent/30/000000/facebook-new.png" />
+            <FontAwesomeIcon
+              icon={faFacebook}
+              size="xl"
+              style={{ color: "black", cursor: "pointer" }}
+              // onClick={handleClick}
+            />
           </a>
           <a
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="https://img.icons8.com/fluent/30/000000/linkedin-2.png" />
+            <FontAwesomeIcon
+              icon={faLinkedin}
+              size="xl"
+              style={{ color: "black", cursor: "pointer" }}
+            />
           </a>
           <a
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" />
+            <FontAwesomeIcon
+              icon={faInstagram}
+              size="xl"
+              style={{ color: "black", cursor: "pointer" }}
+            />
           </a>
           <a
             href="https://messenger.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="https://img.icons8.com/fluent/30/000000/facebook-messenger--v2.png" />
+             <FontAwesomeIcon
+              icon={faFacebookMessenger}
+              size="xl"
+              style={{ color: "black", cursor: "pointer" }}
+            />
           </a>
           <a
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="https://img.icons8.com/fluent/30/000000/twitter.png" />
+             <FontAwesomeIcon
+              icon={faTwitter}
+              size="xl"
+              style={{ color: "black", cursor: "pointer" }}
+            />
           </a>
         </div>
         <p class="text-center text-gray-700 font-medium">

@@ -89,8 +89,8 @@ body {
 .landing-page .ellipse {
   background-color: #b6b6e2;
   border-radius: 588px;
-  height: 1176px;
-  left: 229px;
+  /* height: 1176px; */
+  /* left: 229px; */
   position: absolute;
   top: 0;
   width: 1176px;

@@ -13,7 +13,10 @@ export default function Background(props) {
     <div className="landing-page w-full0" style={{fontFamily:"Inter"}}>
       <div className="div">
         <div className="overlap-group">
-          <div className="ellipse hidden sm:block" />
+          <div>
+            <div className="ellipse hidden sm:block" style={{color:"white"}}>Hunger Food</div>
+          </div>
+          
           <div className="navigation-bar"></div>
           <div className="frame ">
             <div className="text-wrapper-3">Hey, You Hungry?</div>
@@ -21,11 +24,9 @@ export default function Background(props) {
               Delight your taste buds with our culinary creations. Explore
               flavors, savor moments.
             </p>
-            <div className="div-wrapper bg-blue-500 hover:bg-blue-800">
-              <button className="text-wrapper-4" onClick={handleClick}>
+              <button className="font-medium font-white rounded-3xl bg-blue-500 px-4 py-2 hover:bg-blue-700" style={{color:"white"}} onClick={handleClick}>
                 Buy Now
               </button>
-            </div>
           </div>
         </div>
         <div className="frame-2"></div>

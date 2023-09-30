@@ -2,7 +2,9 @@ const router = require("express").Router();
 
 const OrderHistory = require("../models/orderHistorySchema");
 
-router.post("/addOrder", async (req, res) => {
+const verifyJWT = require("../middleware/auth");
+
+router.post("/addOrder", verifyJWT, async (req, res) => {
   const email = req.body.email;
   const itemsData = req.body.items;
   const data = new OrderHistory({
@@ -17,7 +19,7 @@ router.post("/addOrder", async (req, res) => {
   res.send(order._id);
 });
 
-router.get("/getOrder", async (req, res) => {
+router.get("/getOrder", verifyJWT, async (req, res) => {
   const email = req.query.email;
   const collected = false;
   OrderHistory.find({ email: email, collected: collected}).then(function (data, docs) {

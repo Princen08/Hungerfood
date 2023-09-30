@@ -39,7 +39,6 @@ export default function Cart() {
   }, [selectedItem]);
 
   const increment = async (event) => {
-    console.log("Y")
     let curr = parseInt(event.currentTarget.id);
     try {
       let prevCount = qty.get(curr);
@@ -68,7 +67,6 @@ export default function Cart() {
     let curr = parseInt(event.currentTarget.id);
     try {
       await removeItemAPI(curr);
-      console.log(selectedItem);
       setSelectedItem((current) =>
         current.filter((order) => order.id !== curr)
       );
@@ -88,7 +86,7 @@ export default function Cart() {
     });
     try {
       const res = await addOrderAPI(data);
-      navigate("/payment", {
+      navigate(`/payment/${res.data}`, {
         state: { data: data, key: res.data, amount: totalAmt },
       });
     } catch {

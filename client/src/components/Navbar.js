@@ -107,7 +107,7 @@ export default function Navbar(props) {
                 </div>
                 <div>
                   <button
-                    className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-3xl"
+                    className="bg-blue-500 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-3xl"
                     style={{
                       fontFamily: "Inter",
                       position: "inherit",

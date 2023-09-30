@@ -3,13 +3,16 @@ const router = require("express").Router();
 const Item = require("../models/itemSchema");
 const Order = require("../models/orderSchema");
 
-router.get("/getMenu", async (req, res) => {
+
+const verifyJWT = require("../middleware/auth");
+
+router.get("/getMenu", verifyJWT, async (req, res) => {
   Item.find({}).then(function (data, docs) {
     res.send(data);
   });
 });
 
-router.post("/addItem", async (req, res) => {
+router.post("/addItem", verifyJWT, async (req, res) => {
   const id = req.body.id;
   const email = req.body.email;
   const count = req.body.count;
@@ -33,13 +36,13 @@ router.post("/addItem", async (req, res) => {
   res.send("Added Successfully");
 });
 
-router.get("/getCartItems", async (req, res) => {
+router.get("/getCartItems",verifyJWT, async (req, res) => {
   Order.find({ email: req.query.email }).then(function (data, docs) {
     res.send(data);
   });
 });
 
-router.post("/removeItem", async (req, res) => {
+router.post("/removeItem",verifyJWT, async (req, res) => {
   const id = req.body.id;
   const email = req.body.email;
   Order.deleteOne({ id: id, email: email }).then(function (data, docs) {
@@ -47,7 +50,7 @@ router.post("/removeItem", async (req, res) => {
   });
 });
 
-router.post("/updateItem", async (req, res) => {
+router.post("/updateItem", verifyJWT, async (req, res) => {
   const id = req.body.params.id;
   const email = req.body.params.email;
   const type = req.body.params.type;
@@ -62,7 +65,7 @@ router.post("/updateItem", async (req, res) => {
   }
 });
 
-router.get("/getItem", async (req, res) => {
+router.get("/getItem", verifyJWT, async (req, res) => {
   Item.find({ id: req.query.id }).then(function (data, docs) {
     res.send(data);
   });

@@ -21,13 +21,11 @@ export default function MyOrders() {
     getOrders();
   }, []);
   const showQRCode = (orderDeatils) => {
-    console.log(orderDeatils);
     navigate(`/order/${orderDeatils._id}`, {
       state: { data: orderDeatils, key: orderDeatils._id },
     });
   };
   const showDetails = (orderDeatils) => {
-    console.log(orderDeatils)
     navigate(`/details/${orderDeatils._id}`, {
       state: { data: orderDeatils, key: orderDeatils._id },
     });
