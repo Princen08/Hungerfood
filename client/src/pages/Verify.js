@@ -1,44 +1,43 @@
 import React, { useState } from "react";
+import "../App.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userSignUpAPI } from "../api/authApi";
 import toast, { Toaster } from "react-hot-toast";
+import OtpInput from "react-otp-input";
 
 export default function Verify() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [c1, setC1] = useState("");
-  const [c2, setC2] = useState("");
-  const [c3, setC3] = useState("");
-  const [c4, setC4] = useState("");
-
+  const [otp, setOtp] = useState("");
   async function addUser() {
     try {
-      await userSignUpAPI(
+      const res = await userSignUpAPI(
         location.state.name,
         location.state.email,
         location.state.password
       );
+      if (res.auth) {
+        localStorage.setItem("token", "Bearer " + res.token);
+      }
     } catch {
       console.log("Error while adding user in database.");
     }
   }
   const handleSubmit = (event) => {
     event.preventDefault();
-    let userOtp = c1 + c2 + c3 + c4;
-    userOtp = parseInt(userOtp);
-    if (userOtp === location.state.otp) {
+    if (otp == location.state.otp) {
       addUser();
       localStorage.setItem("currUser", location.state.email);
       navigate("/home");
     } else {
-      toast.error("OTP does not match. Please try again!")
+      toast.error("OTP does not match. Please try again!");
     }
   };
   return (
     <>
       <div
         className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12"
-        style={{ fontFamily: "DM Sans" }}
+        style={{ fontFamily: "Inter" }}
       >
         <Toaster position="top-center" reverseOrder={false} />
         <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
@@ -52,59 +51,46 @@ export default function Verify() {
               </div>
             </div>
             <div>
-              <form method="post" onSubmit={handleSubmit}>
-                <div className="flex flex-col space-y-16">
-                  <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-                    <div className="w-16 h-16 ">
-                      <input
-                        maxLength="1"
-                        pattern="[0-9]"
-                        className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                        type="text"
-                        value={c1}
-                        onChange={(e) => setC1(e.target.value)}
-                      />
-                    </div>
-                    <div className="w-16 h-16 ">
-                      <input
-                        maxLength="1"
-                        pattern="[0-9]"
-                        className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                        type="text"
-                        value={c2}
-                        onChange={(e) => setC2(e.target.value)}
-                      />
-                    </div>
-                    <div className="w-16 h-16 ">
-                      <input
-                        maxLength="1"
-                        pattern="[0-9]"
-                        className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                        type="text"
-                        value={c3}
-                        onChange={(e) => setC3(e.target.value)}
-                      />
-                    </div>
-                    <div className="w-16 h-16 ">
-                      <input
-                        maxLength="1"
-                        pattern="[0-9]"
-                        className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                        type="text"
-                        value={c4}
-                        onChange={(e) => setC4(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-5">
-                    <div>
-                      <button className="flex flex-row items-center justify-center text-center w-full border rounded-3xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm">
-                        Verify Account
-                      </button>
-                    </div>
+              <div className="flex flex-col space-y-16">
+                <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
+                  <div>
+                    <OtpInput
+                      value={otp}
+                      onChange={setOtp}
+                      renderInput={(props) => <input {...props} />}
+                      numInputs={4}
+                      separator={<span style={{ width: "8px" }}></span>}
+                      inputType="number"
+                      shouldAutoFocus={true}
+                      inputStyle={{
+                        border: "2px solid black",
+                        marginLeft: "22px",
+                        borderRadius: "8px",
+                        width: "54px",
+                        height: "54px",
+                        fontSize: "20px",
+                        color: "#000",
+                        fontWeight: "400",
+                        caretColor: "blue",
+                      }}
+                      focusStyle={{
+                        border: "1px solid",
+                        outline: "none",
+                      }}
+                    />
                   </div>
                 </div>
-              </form>
+                <div className="flex flex-col space-y-5">
+                  <div>
+                    <button
+                      onClick={handleSubmit}
+                      className="flex flex-row items-center justify-center text-center w-full border rounded-full outline-none py-5 bg-blue-500 border-none text-white text-sm shadow-sm hover:bg-blue-700"
+                    >
+                      Verify Account
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

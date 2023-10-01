@@ -33,14 +33,14 @@ export const userSignInAPI = async (email, password) => {
 export const userSignUpAPI = async (name, email, password) => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/auth/signin`,
+        `${process.env.REACT_APP_API_BASE_URL}/auth/signup`,
         {
           name: name,
           email: email,
           password: password,
         }
       );
-      return res;
+      return res.data;
     } catch (err) {
       return err;
     }

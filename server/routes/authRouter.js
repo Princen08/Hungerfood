@@ -14,8 +14,12 @@ router.post("/signup", async (req, res) => {
     email: email,
     password: hashedPassword,
   });
-  await formData.save();
-  res.send("Inserted data..");
+  const user = await formData.save();
+  const id = user._id;
+  const token = jwt.sign({id}, "jwtSecret",{
+    expiresIn: 3000,
+  })
+  return res.send({auth: true, token: token, user: user});
 });
 
 router.post("/signin", async (req, res) => {
