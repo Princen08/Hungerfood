@@ -14,7 +14,6 @@ export default function Background(props) {
       <div className="div">
         <div className="overlap-group">
           <div>
-            <div className="ellipse hidden sm:block" style={{color:"white"}}>Hunger Food</div>
           </div>
           
           <div className="navigation-bar"></div>
@@ -28,8 +27,11 @@ export default function Background(props) {
                 Buy Now
               </button>
           </div>
+          
         </div>
-        <div className="frame-2"></div>
+        <div className="frame-2 mb-100">
+        <img src = {require("../assets/foodImage.png")}></img>
+        </div>
       </div>
     </div>
   );

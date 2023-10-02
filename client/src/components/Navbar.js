@@ -13,7 +13,8 @@ function classNames(...classes) {
 export default function Navbar(props) {
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.setItem("currUser", "");
+    localStorage.removeItem("currUser");
+    localStorage.removeItem("token");
     navigate("/");
   };
   const handleClick = () => {

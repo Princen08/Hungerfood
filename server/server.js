@@ -17,6 +17,9 @@ mongoose
   })
   .catch((err) => console.error(err));
 
+
+
+
 const authRouter = require("./routes/authRouter");
 app.use("/auth", authRouter);
 const itemRouter = require("./routes/itemRouter");

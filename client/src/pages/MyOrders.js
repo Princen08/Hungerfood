@@ -10,7 +10,6 @@ import Footer from "../components/Footer";
 export default function MyOrders() {
   const [loading, setLoading] = useState(true);
   const [ordersList, setOrderList] = useState([]);
-  const [showDetail, setShowDeatils] = useState(false);
   const navigate = useNavigate();
   const getOrders = async () => {
     const res = await getOrderAPI();

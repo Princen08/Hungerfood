@@ -32,8 +32,8 @@ export default function Home() {
       res?.data.forEach((element) => {
         if (!currOrder.includes(element.id)) currOrder.push(element.id);
       });
-    } catch {
-      console.log("Error while fetching data.");
+    } catch (err) {
+      console.log(err);
     }
     setSelectedItem(currOrder);
   }
@@ -151,6 +151,7 @@ export default function Home() {
           />
         </div>
       )}
+      {!loading && (<>
       <div className="mt-1" style={{ width: "100%" }}>
         <Background
           style={{ fontFamily: "DM Sans" }}
@@ -159,7 +160,7 @@ export default function Home() {
       </div>
       <div className="bg-blue-500 hover:bg-blue-800">
         <FloatingButton></FloatingButton>
-      </div>
+      </div></>)}
       {!loading && (
         <div
           ref={mainSection}
@@ -171,12 +172,11 @@ export default function Home() {
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}
               > 
-                <LazyLoadImage id = {item.id}
-                  // style={{display}}
-                  onLoad={handleLoad}
+                <LazyLoadImage key = {item.id}
                   className="p-8 rounded-t-lg"
                   alt="product"
-                  src={item?.src} // use normal <img> attributes as props
+                  src={item?.src} 
+                  placeholderSrc={require('../assets/photo.png')}
                 />
                 {/* {!isImageLoaded.get(item.id) && t && (<Skeleton square height={200} className="pt-2"></Skeleton>)} */}
                 <div className="px-5 pb-5">
@@ -207,7 +207,7 @@ export default function Home() {
             ))}
         </div>
       )}
-      <Footer></Footer>
+      {!loading && (<Footer></Footer>)}
     </>
   );
 }

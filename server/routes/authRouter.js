@@ -19,6 +19,7 @@ router.post("/signup", async (req, res) => {
   const token = jwt.sign({id}, "jwtSecret",{
     expiresIn: 3000,
   })
+
   return res.send({auth: true, token: token, user: user});
 });
 

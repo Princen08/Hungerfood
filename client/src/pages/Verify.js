@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { userSignUpAPI } from "../api/authApi";
 import toast, { Toaster } from "react-hot-toast";
 import OtpInput from "react-otp-input";
+import Error from "../components/Error";
 
 export default function Verify() {
   const location = useLocation();
@@ -35,7 +36,7 @@ export default function Verify() {
   };
   return (
     <>
-      <div
+      {location.state?.email ? (<div
         className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12"
         style={{ fontFamily: "Inter" }}
       >
@@ -94,7 +95,7 @@ export default function Verify() {
             </div>
           </div>
         </div>
-      </div>
+      </div>): <Error/>}
     </>
   );
 }
