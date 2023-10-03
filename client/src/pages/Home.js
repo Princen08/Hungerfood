@@ -14,8 +14,8 @@ import {
 import Background from "../components/Background";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+
 
 let currOrder = [];
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
   const [itemList, setItemList] = useState([]);
   const [searchResultList, setSearchResultList] = useState(itemList);
   const [selectedItem, setSelectedItem] = useState([]);
-  const [isImageLoaded, setIsImageLoaded] = useState(new Map());
+
   const mainSection = useRef(null);
   async function getOrder() {
     currOrder = [];
@@ -122,10 +122,6 @@ export default function Home() {
     );
   };
   
-  const handleLoad = (event) => {
-    setIsImageLoaded(map => new Map(map.set(event.currentTarget?.id, true)));
-  }
- 
   return (
     <>
       <NavBar count={currOrder.length} current={"Home"}></NavBar>

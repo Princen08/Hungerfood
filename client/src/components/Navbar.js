@@ -20,9 +20,7 @@ export default function Navbar(props) {
   const handleClick = () => {
     navigate("/cart");
   };
-  const handleHome = () => {
-    navigate("/home");
-  };
+  
   let navigation = [{ name: "Home", href: "/home"},
   { name: "My Orders", href: "/myorders" },];
   return (
