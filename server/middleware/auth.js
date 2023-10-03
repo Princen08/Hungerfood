@@ -17,7 +17,7 @@ const verifyJWT = (req, res, next) => {
             })
         }
     } catch (err) {
-        console.log(err);
+        res.send({auth: false})
     }
 }
 

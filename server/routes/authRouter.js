@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/userSchema");
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
+const verifyJWT = require("../middleware/auth");
 
 router.post("/signup", async (req, res) => {
   const name = req.body.name;
@@ -82,4 +83,8 @@ router.post("/verify", async (req, res) => {
     }
   });
 });
+ 
+router.get('/isLoggedIn', verifyJWT, (req, res) => {
+  res.send({auth: true});
+})
 module.exports = router;

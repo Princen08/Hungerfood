@@ -46,3 +46,18 @@ export const userSignUpAPI = async (name, email, password) => {
     }
   };
   
+export const isLoggedIn = async () => {
+  try {
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/auth/isLoggedIn`,
+      {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    return res;
+  } catch (err) {
+    return err;
+  }
+}

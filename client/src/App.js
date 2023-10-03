@@ -1,4 +1,4 @@
-import React, {useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState } from "react";
 import {Routes, Route, useNavigate } from "react-router-dom";
 import Auth from "./pages/Auth.js";
 import Home from "./pages/Home.js";
@@ -11,26 +11,26 @@ import MyOrders from "./pages/MyOrders.js";
 import DetailsList from "./components/DetailsList.js";
 import ProtectedRoute from "./utils/ProtectedRoute.js";
 import Error from "./components/Error.js";
+import { isLoggedIn } from "./api/authApi.js";
 
 export default function App() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useMemo(() => {
-    const checkUser = () => {
-      const userToken = localStorage.getItem("token");
-      if (!userToken || userToken === "undefined") {
-        setIsLoggedIn(false);
-      } else {
-        navigate("/home");
-        setIsLoggedIn(true);
+  const [isUser, setIsUser] = useState(false);
+  useEffect(() => {
+    const checkUser = async () => {
+      const res = await isLoggedIn();
+      if(res.data.auth) {
+        setIsUser(true);
       }
-    };
-    checkUser();
-  }, [isLoggedIn]);
+    }
+    checkUser()
+  }, [isUser]);
   return (
     <>
       <Routes>
-        <Route path="/" element={<Auth />} />
+      <Route path="*" element={<Error />} />
+        <Route path = '/' element = {<Auth/>}>
+        </Route>
         <Route path="/verify" element={<Verify />} />
         <Route path="/error" element={<Error />} />
         <Route
