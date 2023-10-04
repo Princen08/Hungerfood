@@ -14,8 +14,7 @@ import {
 import Background from "../components/Background";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import 'react-loading-skeleton/dist/skeleton.css'
-
+import "react-loading-skeleton/dist/skeleton.css";
 
 let currOrder = [];
 export default function Home() {
@@ -121,7 +120,7 @@ export default function Home() {
       </>
     );
   };
-  
+
   return (
     <>
       <NavBar count={currOrder.length} current={"Home"}></NavBar>
@@ -147,16 +146,19 @@ export default function Home() {
           />
         </div>
       )}
-      {!loading && (<>
-      <div className="mt-1" style={{ width: "100%" }}>
-        <Background
-          style={{ fontFamily: "DM Sans" }}
-          data={mainSection}
-        ></Background>
-      </div>
-      <div className="bg-blue-500 hover:bg-blue-800">
-        <FloatingButton></FloatingButton>
-      </div></>)}
+      {!loading && (
+        <>
+          <div className="mt-1" style={{ width: "100%" }}>
+            <Background
+              style={{ fontFamily: "DM Sans" }}
+              data={mainSection}
+            ></Background>
+          </div>
+          <div className="bg-blue-500 hover:bg-blue-800">
+            <FloatingButton></FloatingButton>
+          </div>
+        </>
+      )}
       {!loading && (
         <div
           ref={mainSection}
@@ -167,12 +169,13 @@ export default function Home() {
               <div
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}
-              > 
-                <LazyLoadImage key = {item.id}
+              >
+                <LazyLoadImage
+                  key={item.id}
                   className="p-8 rounded-t-lg"
                   alt="product"
-                  src={item?.src} 
-                  placeholderSrc={require('../assets/photo.png')}
+                  src={item?.src}
+                  placeholderSrc={require("../assets/photo.png")}
                 />
                 {/* {!isImageLoaded.get(item.id) && t && (<Skeleton square height={200} className="pt-2"></Skeleton>)} */}
                 <div className="px-5 pb-5">
@@ -203,7 +206,7 @@ export default function Home() {
             ))}
         </div>
       )}
-      {!loading && (<Footer></Footer>)}
+      {!loading && <Footer></Footer>}
     </>
   );
 }

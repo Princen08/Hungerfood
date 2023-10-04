@@ -20,9 +20,11 @@ export default function Navbar(props) {
   const handleClick = () => {
     navigate("/cart");
   };
-  
-  let navigation = [{ name: "Home", href: "/home"},
-  { name: "My Orders", href: "/myorders" },];
+
+  let navigation = [
+    { name: "Home", href: "/home" },
+    { name: "My Orders", href: "/myorders" },
+  ];
   return (
     <Disclosure
       as="nav"
@@ -99,7 +101,10 @@ export default function Navbar(props) {
                     onClick={handleClick}
                   />
                   {props.count > 0 && (
-                    <span className="count" style={{ marginTop: "0.6rem", cursor:"pointer" }}>
+                    <span
+                      className="count"
+                      style={{ marginTop: "0.6rem", cursor: "pointer" }}
+                    >
                       {props.count}
                     </span>
                   )}

@@ -11,7 +11,6 @@ import MyOrders from "./pages/MyOrders.js";
 import DetailsList from "./components/DetailsList.js";
 import ProtectedRoute from "./utils/ProtectedRoute.js";
 import Error from "./components/Error.js";
-import { isLoggedIn } from "./api/authApi.js";
 import UserHomeRoute from "./utils/UserHomeRoute.js";
 
 export default function App() {
@@ -19,7 +18,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="*" element={<Error />} />
-        <Route path="/" element = {<UserHomeRoute></UserHomeRoute>}/>
+        <Route path="/" element={<UserHomeRoute></UserHomeRoute>} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/error" element={<Error />} />
         <Route

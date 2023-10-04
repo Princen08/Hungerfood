@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/userSchema");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const verifyJWT = require("../middleware/auth");
 
@@ -17,11 +17,11 @@ router.post("/signup", async (req, res) => {
   });
   const user = await formData.save();
   const id = user._id;
-  const token = jwt.sign({id}, "jwtSecret",{
+  const token = jwt.sign({ id }, "jwtSecret", {
     expiresIn: 3000,
-  })
+  });
 
-  return res.send({auth: true, token: token, user: user});
+  return res.send({ auth: true, token: token, user: user });
 });
 
 router.post("/signin", async (req, res) => {
@@ -36,10 +36,10 @@ router.post("/signin", async (req, res) => {
     return res.send({ auth: false });
   }
   const id = user._id;
-  const token = jwt.sign({id}, "jwtSecret",{
+  const token = jwt.sign({ id }, "jwtSecret", {
     expiresIn: 3000,
-  })
-  return res.send({auth: true, token: token, user: user});
+  });
+  return res.send({ auth: true, token: token, user: user });
 });
 
 router.post("/verify", async (req, res) => {
@@ -83,8 +83,8 @@ router.post("/verify", async (req, res) => {
     }
   });
 });
- 
-router.get('/isLoggedIn', verifyJWT, (req, res) => {
-  res.send({auth: true});
-})
+
+router.get("/isLoggedIn", verifyJWT, (req, res) => {
+  res.send({ auth: true });
+});
 module.exports = router;

@@ -6,7 +6,7 @@ import {
   faFacebook,
   faLinkedin,
   faFacebookMessenger,
-  faTwitter
+  faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
@@ -56,7 +56,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-             <FontAwesomeIcon
+            <FontAwesomeIcon
               icon={faFacebookMessenger}
               size="xl"
               style={{ color: "black", cursor: "pointer" }}
@@ -67,7 +67,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-             <FontAwesomeIcon
+            <FontAwesomeIcon
               icon={faTwitter}
               size="xl"
               style={{ color: "black", cursor: "pointer" }}

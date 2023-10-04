@@ -22,17 +22,19 @@ export default function Payment() {
             `${process.env.REACT_APP_API_BASE_URL}/payment/verify`,
             response
           );
-          if(data.message === "success") {
-            location.state.data.forEach(async element => {
+          if (data.message === "success") {
+            location.state.data.forEach(async (element) => {
               try {
                 await removeItemAPI(element.id);
               } catch {
                 console.log("Error while removing item");
               }
             });
-            navigate(`/order/${location.state.key}`, { state: { data: location.state.data, key: location.state.key}});
+            navigate(`/order/${location.state.key}`, {
+              state: { data: location.state.data, key: location.state.key },
+            });
           } else {
-            console.log("Payement failed")
+            console.log("Payement failed");
           }
         } catch (err) {
           console.log(err);

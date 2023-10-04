@@ -1,23 +1,23 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 const verifyJWT = (req, res, next) => {
-    try {
-        const token = req.headers["x-access-token"].split(' ')[1];
-        if(!token) {
-            res.send("you require a valid token..!")
+  try {
+    const token = req.headers["x-access-token"].split(" ")[1];
+    if (!token) {
+      res.send("you require a valid token..!");
+    } else {
+      jwt.verify(token, "jwtSecret", (err, decoded) => {
+        if (err) {
+          res.send({ auth: false, message: "Need valid token" });
         } else {
-            jwt.verify(token, "jwtSecret", (err, decoded) => {
-                if(err) {
-                    res.send({auth: false, message:"Need valid token"})
-                } else {
-                    req.userId = decoded.id;
-                    next();
-                }
-            })
+          req.userId = decoded.id;
+          next();
         }
-    } catch (err) {
-        res.send({auth: false, message:"No token found"})
+      });
     }
-}
+  } catch (err) {
+    res.send({ auth: false, message: "No token found" });
+  }
+};
 
-module.exports = verifyJWT
+module.exports = verifyJWT;

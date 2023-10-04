@@ -15,10 +15,9 @@ export default function DetailsList() {
       let res = await getItem(element.id);
       res["count"] = element.count;
       total += element.count * res.data[0].price;
-      setTotalAmt(total)
+      setTotalAmt(total);
       setItemList((prev) => [...prev, res]);
     });
-   
   }, [loading]);
   return (
     <>

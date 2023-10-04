@@ -18,6 +18,6 @@ const UserHomeRoute = () => {
     checkUser();
   }, [isLoggedIn]);
 
-  return <>{isisAuthenticated ? <Home/> : <Auth/>}</>;
+  return <>{isisAuthenticated ? <Home /> : <Auth />}</>;
 };
 export default UserHomeRoute;

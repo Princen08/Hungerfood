@@ -137,7 +137,7 @@ export default function Cart() {
                       </div>
                       <div className="mt-4 flex  sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center">
-                          <div style={{scale:0.8}}>
+                          <div style={{ scale: 0.8 }}>
                             <label for="Quantity" class="sr-only">
                               {" "}
                               Quantity{" "}
@@ -145,8 +145,8 @@ export default function Cart() {
 
                             <div class="flex items-center rounded">
                               <button
-                              id={item.id}
-                              onClick={decrement}
+                                id={item.id}
+                                onClick={decrement}
                                 type="button"
                                 class="w-10 h-10 bg-red-500 leading-10 text-white rounded transition hover:opacity-75"
                               >
@@ -160,13 +160,13 @@ export default function Cart() {
                                 class="h-10 w-12 border-2 border-slate-200 rounded text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                               />
 
-                              <button onClick={increment}
+                              <button
+                                onClick={increment}
                                 type="button"
                                 id={item.id}
                                 class="w-10 h-10 leading-10 bg-green-500 text-white rounded transition hover:opacity-75"
                               >
                                 <span>&#43;</span>
-
                               </button>
                             </div>
                           </div>

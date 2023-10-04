@@ -3,7 +3,6 @@ const router = require("express").Router();
 const Item = require("../models/itemSchema");
 const Order = require("../models/orderSchema");
 
-
 const verifyJWT = require("../middleware/auth");
 
 router.get("/getMenu", verifyJWT, async (req, res) => {
@@ -36,13 +35,13 @@ router.post("/addItem", verifyJWT, async (req, res) => {
   res.send("Added Successfully");
 });
 
-router.get("/getCartItems",verifyJWT, async (req, res) => {
+router.get("/getCartItems", verifyJWT, async (req, res) => {
   Order.find({ email: req.query.email }).then(function (data, docs) {
     res.send(data);
   });
 });
 
-router.post("/removeItem",verifyJWT, async (req, res) => {
+router.post("/removeItem", verifyJWT, async (req, res) => {
   const id = req.body.id;
   const email = req.body.email;
   Order.deleteOne({ id: id, email: email }).then(function (data, docs) {
@@ -69,6 +68,6 @@ router.get("/getItem", verifyJWT, async (req, res) => {
   Item.find({ id: req.query.id }).then(function (data, docs) {
     res.send(data);
   });
-})
+});
 
 module.exports = router;

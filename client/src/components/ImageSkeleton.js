@@ -2,9 +2,7 @@ export default function ImageSkeleton() {
   return (
     <>
       <span>
-        <div
-          class="flex items-center justify-center ml-3 mt-4 w-11/12 h-48 bg-gray-300 rounded sm:w-11/12 dark:bg-gray-700"
-        >
+        <div class="flex items-center justify-center ml-3 mt-4 w-11/12 h-48 bg-gray-300 rounded sm:w-11/12 dark:bg-gray-700">
           <svg
             class="w-10 h-10 text-gray-200 dark:text-gray-600"
             aria-hidden="true"
