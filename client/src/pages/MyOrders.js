@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
-
 export default function MyOrders() {
   const [loading, setLoading] = useState(true);
   const [ordersList, setOrderList] = useState([]);
@@ -38,7 +37,7 @@ export default function MyOrders() {
         </div>
       )}
       {!loading && (
-        <div className="mt-20" style={{ fontFamily: "Inter", zIndex:10}}>
+        <div className="mt-20" style={{ fontFamily: "Inter", zIndex: 10 }}>
           {ordersList &&
             ordersList.map((order, index) => (
               <div className="justify-between mb-2 mx-12 rounded-lg bg-gray-100 p-6 shadow-md sm:flex sm:justify-start">

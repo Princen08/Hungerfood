@@ -1,5 +1,5 @@
-import React, {useEffect, useMemo, useState } from "react";
-import {Routes, Route, useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Auth from "./pages/Auth.js";
 import Home from "./pages/Home.js";
 import Verify from "./pages/Verify.js";
@@ -12,25 +12,14 @@ import DetailsList from "./components/DetailsList.js";
 import ProtectedRoute from "./utils/ProtectedRoute.js";
 import Error from "./components/Error.js";
 import { isLoggedIn } from "./api/authApi.js";
+import UserHomeRoute from "./utils/UserHomeRoute.js";
 
 export default function App() {
-  const navigate = useNavigate();
-  const [isUser, setIsUser] = useState(false);
-  useEffect(() => {
-    const checkUser = async () => {
-      const res = await isLoggedIn();
-      if(res.data.auth) {
-        setIsUser(true);
-      }
-    }
-    checkUser()
-  }, [isUser]);
   return (
     <>
       <Routes>
-      <Route path="*" element={<Error />} />
-        <Route path = '/' element = {<Auth/>}>
-        </Route>
+        <Route path="*" element={<Error />} />
+        <Route path="/" element = {<UserHomeRoute></UserHomeRoute>}/>
         <Route path="/verify" element={<Verify />} />
         <Route path="/error" element={<Error />} />
         <Route

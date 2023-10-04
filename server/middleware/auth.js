@@ -9,7 +9,6 @@ const verifyJWT = (req, res, next) => {
             jwt.verify(token, "jwtSecret", (err, decoded) => {
                 if(err) {
                     res.send({auth: false, message:"Need valid token"})
-                    res.redirect('/');
                 } else {
                     req.userId = decoded.id;
                     next();
@@ -17,7 +16,7 @@ const verifyJWT = (req, res, next) => {
             })
         }
     } catch (err) {
-        res.send({auth: false})
+        res.send({auth: false, message:"No token found"})
     }
 }
 
