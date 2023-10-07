@@ -6,7 +6,7 @@
   <img alt="MongoDB Badge" src="https://img.shields.io/badge/MongoDB-%234ea94b?style=for-the-badge&logo=mongodb">
 </div>
 
-Nirma - Food Coupon Generation System is a web application developed during April 2023 to May 2023. It is built using React.js, MongoDB, Node.js, and integrates with a payment gateway API. This system was created exclusively for the Nirma Canteen, providing a seamless way for users to order and pay for food items available at the canteen.
+Nirma - Food Coupon Generation System is a web application. It is built using React.js, MongoDB, Node.js, and integrates with a payment gateway API. This system was created exclusively for the Nirma Canteen, providing a seamless way for users to order and pay for food items available at the canteen.
 
 ## Features
 
