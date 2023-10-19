@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as Logo } from "../assets/Logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
+import { getUserCartItemsAPI } from "../api/itemApi";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar(props) {
+  const [itemCount, setItemCount] = useState();
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("currUser");
@@ -25,6 +27,15 @@ export default function Navbar(props) {
     { name: "Home", href: "/home" },
     { name: "My Orders", href: "/myorders" },
   ];
+  useEffect(() => {
+    const cartItems = async () => {
+        const res = await getUserCartItemsAPI();
+        setItemCount(res.data.length);
+    }
+    if(!props.count) {
+      cartItems();
+    }
+  },[])
   return (
     <Disclosure
       as="nav"
@@ -100,12 +111,12 @@ export default function Navbar(props) {
                     style={{ color: "#ffffff", cursor: "pointer" }}
                     onClick={handleClick}
                   />
-                  {props.count > 0 && (
+                  {(props.count > 0 || itemCount > 0) && (
                     <span
                       className="count"
                       style={{ marginTop: "0.6rem", cursor: "pointer" }}
                     >
-                      {props.count}
+                      {props.count ? props.count: itemCount}
                     </span>
                   )}
                 </div>

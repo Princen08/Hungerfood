@@ -3,11 +3,19 @@ import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SyncLoader from "react-spinners/SyncLoader";
 import { useState, useEffect } from "react";
-
+import { useParams } from "react-router-dom";
+import { getOrderByIdAPI } from "../api/orderApi";
 export default function Order() {
   const location = useLocation();
+  const param = useParams();
   const [loading, setLoading] = useState(true);
+  const [QRData, setQRData] = useState();
   useEffect(() => {
+    const getOrderData = async () => {
+      const res = await getOrderByIdAPI(param.id);
+      setQRData(res.data[0]);
+    }
+    getOrderData();
     setTimeout(() => setLoading(false), 1500);
   }, []);
 
@@ -36,7 +44,7 @@ export default function Order() {
           </h2>
           <QRCode
             style={{ height: "30rem", maxWidth: "60%", width: "60%" }}
-            value={JSON.stringify(location.state.data)}
+            value={JSON.stringify(QRData)}
             viewBox={`0 0 256 256`}
           />
         </div>

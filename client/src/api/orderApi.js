@@ -20,13 +20,33 @@ export const addOrderAPI = async (itemsData) => {
   }
 };
 
-export const getOrderAPI = async () => {
+export const getOrderAPI = async (orderId) => {
   try {
     const res = axios.get(
       `${process.env.REACT_APP_API_BASE_URL}/order/getOrder`,
       {
         params: {
           email: localStorage.getItem("currUser"),
+        },
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    return res;
+  } catch (err) {
+    return err;
+  }
+};
+export const getOrderByIdAPI = async (orderId) => {
+  try {
+    console.log(orderId)
+    const res = axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}/order/getOrderById`,
+      {
+        params: {
+          email: localStorage.getItem("currUser"),
+          orderId: orderId
         },
         headers: {
           "x-access-token": localStorage.getItem("token"),
