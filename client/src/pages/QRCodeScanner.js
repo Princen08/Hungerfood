@@ -8,21 +8,35 @@ export default function QRCodeScanner() {
   useEffect(() => {
     // Function to request camera access
     async function getCameraAccess() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+      // try {
+        // const stream = await navigator.mediaDevices.getUserMedia({
+        //   video: {
+        //     facingMode: {
+        //       ideal: 'environment',
+        //     },
+        //     width: {
+        //         min: 1
+        //     },
+        //     height: {
+        //         min: 1
+        //     }
+        //   },
+        // });
+        // console.log(stream);
+        // if (videoRef.current) {
+        //   videoRef.current.srcObject = stream;
+        // }
+        const constraints = {
           video: {
             facingMode: {
-              exact: 'environment',
-            },
-          },
-        });
-        console.log(stream);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (error) {
-        console.error("Error accessing camera:", error);
-      }
+              ideal: "environment"
+            }
+          }
+        };
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {videoRef.srcObject = stream})
+        .catch( console.error );
+     
     }
 
     // // Call the function to request camera access
