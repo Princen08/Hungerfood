@@ -3,6 +3,7 @@ import QrReader from 'modern-react-qr-reader'
 
 export default function QRCodeScanner() {
   const [data, setData] = useState("");
+  const [showQRCode, setShowQRCode] = useState(true);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -23,7 +24,10 @@ export default function QRCodeScanner() {
     getCameraAccess();
   }, []);
   const handleScan = (data) => {
-      // setData(data);
+      setData(data);
+      if(data) {
+          setShowQRCode(false);
+      }
   }
  
 
@@ -31,7 +35,7 @@ export default function QRCodeScanner() {
     <>
       <div>
         <h1>camera</h1>
-        <QrReader
+       {showQRCode &&(<QrReader
           delay={300}
           facingMode={"environment"}
           onScan={handleScan}
@@ -45,7 +49,7 @@ export default function QRCodeScanner() {
               console.info(error);
             }
           }}
-        />
+        />)}
         {data}
       </div>
     </>
