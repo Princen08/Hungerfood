@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {QrReader} from 'react-qr-reader'
+import QrReader from 'modern-react-qr-reader'
 
 export default function QRCodeScanner() {
   const [data, setData] = useState("");
@@ -34,7 +34,7 @@ export default function QRCodeScanner() {
         <QrReader
           delay={300}
           facingMode={"environment"}
-          // onScan={handleScan}
+          onScan={handleScan}
           style={{ width: '100%' }}
           onResult={(result, error) => {
             if (!!result) {
