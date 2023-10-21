@@ -10,11 +10,13 @@ export default function QRCodeScanner() {
     async function getCameraAccess() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: {
-            ideal: "environment",
-          }},
+          video: {
+            facingMode: {
+              exact: 'environment',
+            },
+          },
         });
-        console.log(stream)
+        console.log(stream);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
