@@ -47,14 +47,12 @@ export default function QRCodeScanner() {
       <div>
         {/* <h1>{data}</h1> */}
         <QrReader
-          facingMode={"environment"}
           delay={500}
           // onError={handleError}
           // onScan={handleScan}
           // chooseDeviceId={()=>selected}
-          style={{ width: "200px", heigth: "100px" }}
         />
-        {data}
+        {/* {data} */}
       </div>
     </>
   );
