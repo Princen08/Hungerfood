@@ -8,24 +8,6 @@ export default function QRCodeScanner() {
   useEffect(() => {
     // Function to request camera access
     async function getCameraAccess() {
-      // try {
-        // const stream = await navigator.mediaDevices.getUserMedia({
-        //   video: {
-        //     facingMode: {
-        //       ideal: 'environment',
-        //     },
-        //     width: {
-        //         min: 1
-        //     },
-        //     height: {
-        //         min: 1
-        //     }
-        //   },
-        // });
-        // console.log(stream);
-        // if (videoRef.current) {
-        //   videoRef.current.srcObject = stream;
-        // }
         const constraints = {
           video: {
             facingMode: {
@@ -41,8 +23,11 @@ export default function QRCodeScanner() {
     getCameraAccess();
   }, []);
   const handleScan = (data) => {
-      setData(data);
+      // setData(data);
   }
+  const handleResult = (data) => {
+    setData(data);
+}
 
   return (
     <>
@@ -51,9 +36,9 @@ export default function QRCodeScanner() {
         <QrReader
           delay={300}
           facingMode={"environment"}
-          // onError={this.handleError}
           onScan={handleScan}
           style={{ width: '100%' }}
+          onResult = {handleResult}
         />
         {data}
       </div>
