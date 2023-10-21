@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { QrReader } from "react-qr-reader";
+
 export default function QRCodeScanner() {
   const [data, setData] = useState("");
   const videoRef = useRef(null);
@@ -9,7 +10,9 @@ export default function QRCodeScanner() {
     async function getCameraAccess() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
+          video: { facingMode: {
+            exact: 'environment'
+          } },
         });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;

@@ -40,7 +40,6 @@ export const getOrderAPI = async (orderId) => {
 };
 export const getOrderByIdAPI = async (orderId) => {
   try {
-    console.log(orderId)
     const res = axios.get(
       `${process.env.REACT_APP_API_BASE_URL}/order/getOrderById`,
       {
