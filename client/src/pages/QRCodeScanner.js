@@ -38,18 +38,16 @@ export default function QRCodeScanner() {
         .catch( console.error );
      
     }
-
-    // // Call the function to request camera access
     getCameraAccess();
   }, []);
-  const handleScan = () => {
-
+  const handleScan = (data) => {
+      setData(data);
   }
 
   return (
     <>
       <div>
-        {/* <h1>{data}</h1> */}
+        <h1>camera</h1>
         <QrReader
           delay={300}
           facingMode={"environment"}
@@ -57,7 +55,7 @@ export default function QRCodeScanner() {
           onScan={handleScan}
           style={{ width: '100%' }}
         />
-        {/* {data} */}
+        {data}
       </div>
     </>
   );
