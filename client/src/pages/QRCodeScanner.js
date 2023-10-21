@@ -11,9 +11,10 @@ export default function QRCodeScanner() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: {
-            exact: 'environment'
-          } },
+            ideal: "environment",
+          }},
         });
+        console.log(stream)
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
