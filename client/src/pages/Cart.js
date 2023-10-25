@@ -212,7 +212,7 @@ export default function Cart() {
                   </div>
                 </div>
                 <button
-                  className="mt-6 w-full rounded-3xl bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+                  className="mt-6 w-full rounded-3xl bg-black py-1.5 font-medium text-blue-50 hover:bg-slate-600"
                   onClick={handleCheckOut}
                 >
                   Check out
