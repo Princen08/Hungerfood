@@ -76,13 +76,13 @@ export default function Auth() {
     <>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <SyncLoader loading={loading} color="#4287f5" />
+          <SyncLoader loading={loading} color="black" />
         </div>
       )}
       <Toaster position="top-center" reverseOrder={false} />
       <Toaster position="top-center" reverseOrder={false} />
       <div className="h-screen md:flex" style={{ fontFamily: "Inter" }}>
-        <div className="relative overflow-hidden md:flex w-2/5 bg-blue-600 i justify-around items-center hidden">
+        <div className="relative overflow-hidden md:flex w-2/5 bg-black i justify-around items-center hidden">
           <div>
             <Logo style={{ marginBottom: "35rem" }}></Logo>
           </div>
@@ -181,7 +181,7 @@ export default function Auth() {
                 </div>
                 <button
                   type="submit"
-                  className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-indigo-800"
+                  className="block w-full bg-black mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-slate-700"
                   // onClick={handleSubmit}
                 >
                   <div className="flex justify-center  items-center">
@@ -277,7 +277,7 @@ export default function Auth() {
                 </div>
                 <button
                   type="submit"
-                  className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-indigo-800"
+                  className="block w-full bg-black mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-slate-700"
                   // onClick={handleSubmit}
                 >
                   <div className="flex justify-center  items-center">

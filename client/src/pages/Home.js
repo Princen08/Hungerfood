@@ -77,7 +77,7 @@ export default function Home() {
     } else {
       // remove item
       event.currentTarget.innerText = "Add to cart";
-      event.currentTarget.style.backgroundColor = "#2472f0";
+      event.currentTarget.style.backgroundColor = "black";
       setSelectedItem((current) => current.filter((order) => order !== curr));
       try {
         let index = currOrder.indexOf(curr); // Find the index of the element
@@ -126,7 +126,7 @@ export default function Home() {
       <NavBar count={currOrder.length} current={"Home"}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <SyncLoader color="#4287f5" loading={loading} />
+          <SyncLoader color="black" loading={loading} />
         </div>
       )}
       {!loading && (
@@ -154,7 +154,7 @@ export default function Home() {
               data={mainSection}
             ></Background>
           </div>
-          <div className="bg-blue-500 hover:bg-blue-800">
+          <div className="bg-black hover:bg-slate-700">
             <FloatingButton></FloatingButton>
           </div>
         </>
@@ -194,7 +194,7 @@ export default function Home() {
                       style={{
                         backgroundColor: currOrder.includes(item.id)
                           ? "#f21b1b"
-                          : "#2472f0",
+                          : "black",
                       }}
                       onClick={handleClick}
                     >

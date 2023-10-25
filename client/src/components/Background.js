@@ -23,7 +23,7 @@ export default function Background(props) {
               flavors, savor moments.
             </p>
             <button
-              className="font-medium font-white rounded-3xl bg-blue-500 px-4 py-2 hover:bg-blue-700"
+              className="font-medium font-white rounded-3xl bg-black px-4 py-2 hover:bg-slate-700"
               style={{ color: "white" }}
               onClick={handleClick}
             >

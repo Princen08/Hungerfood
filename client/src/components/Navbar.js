@@ -39,7 +39,7 @@ export default function Navbar(props) {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-900 z-20"
+      className="bg-black z-20"
       style={{ fontFamily: "Inter", position: "fixed", top: 0, width: "100%" }}
     >
       {({ open }) => (
@@ -88,7 +88,7 @@ export default function Navbar(props) {
                         href={item.href}
                         className={classNames(
                           props.current === item.name
-                            ? "bg-gray-900 text-white"
+                            ? "bg-slate-200 text-black"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-2xl px-3 py-2 text-sm font-medium"
                         )}
@@ -122,11 +122,10 @@ export default function Navbar(props) {
                 </div>
                 <div>
                   <button
-                    className="bg-blue-500 hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-3xl"
+                    className="bg-white hover:bg-slate-700 hover:text-white text-black font-medium py-2 px-4 rounded-3xl"
                     style={{
                       fontFamily: "Inter",
                       position: "inherit",
-                      // backgroundColor: "#6066d1",
                     }}
                     onClick={handleLogout}
                   >

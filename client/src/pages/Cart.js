@@ -98,7 +98,7 @@ export default function Cart() {
       <NavBar count={selectedItem.length}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <SyncLoader loading={loading} color="#4287f5" />
+          <SyncLoader loading={loading} color="black" />
         </div>
       )}
       <Toaster position="top-center" reverseOrder={false} />

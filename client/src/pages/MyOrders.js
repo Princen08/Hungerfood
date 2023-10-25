@@ -33,7 +33,7 @@ export default function MyOrders() {
       <Navbar current={"My Orders"}></Navbar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <SyncLoader loading={loading} color="#4287f5" />
+          <SyncLoader loading={loading} color="black" />
         </div>
       )}
       {!loading && (
@@ -53,7 +53,7 @@ export default function MyOrders() {
                   <div className="mt-4 flex  sm:space-y-2 sm:mt-0 sm:block sm:space-x-6">
                     <div className="flex items-center gap-4 mt-3">
                       <button
-                        className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-3xl"
+                        className="bg-black hover:bg-slate-600 text-white font-bold py-2 px-4 rounded-3xl"
                         style={{
                           fontFamily: "Inter",
                           position: "inherit",
@@ -63,7 +63,7 @@ export default function MyOrders() {
                         QR Code
                       </button>
                       <button
-                        className="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-3xl"
+                        className="bg-black hover:bg-slate-600 text-white font-bold py-2 px-4 rounded-3xl"
                         style={{
                           fontFamily: "Inter",
                           position: "inherit",

@@ -14,7 +14,9 @@ export default function Order() {
     const getOrderData = async () => {
       const res = await getOrderByIdAPI(param.id);
       setQRData(res.data[0]);
+      console.log(res);
     }
+   
     getOrderData();
     setTimeout(() => setLoading(false), 1500);
   }, []);
@@ -24,7 +26,7 @@ export default function Order() {
       <Navbar></Navbar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
-          <SyncLoader loading={loading} color="#4287f5" />
+          <SyncLoader loading={loading} color="black" />
         </div>
       )}
       {!loading && (

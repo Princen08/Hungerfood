@@ -88,7 +88,7 @@ export default function Verify() {
                     <div>
                       <button
                         onClick={handleSubmit}
-                        className="flex flex-row items-center justify-center text-center w-full border rounded-full outline-none py-5 bg-blue-500 border-none text-white text-sm shadow-sm hover:bg-blue-700"
+                        className="flex flex-row items-center justify-center text-center w-full border rounded-full outline-none py-5 bg-black border-none text-white text-sm shadow-sm hover:bg-slate-700"
                       >
                         Verify Account
                       </button>
