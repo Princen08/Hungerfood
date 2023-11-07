@@ -28,7 +28,7 @@ export default function Home() {
     currOrder = [];
     try {
       const res = await getUserCartItemsAPI();
-      res?.data.forEach((element) => {
+      res?.data?.forEach((element) => {
         if (!currOrder.includes(element.id)) currOrder.push(element.id);
       });
     } catch (err) {
@@ -165,7 +165,7 @@ export default function Home() {
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 m-10 mb-44"
         >
           {searchResultList &&
-            searchResultList.map((item, index) => (
+            searchResultList?.map((item, index) => (
               <div
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}

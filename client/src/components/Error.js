@@ -1,7 +1,7 @@
 export default function Error() {
   return (
     <>
-      <div className="grid h-screen px-4 bg-white place-content-center">
+      <div className="grid h-screen px-4 bg-white place-content-center" style={{fontFamily:"Inter"}}>
         <div className="text-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
