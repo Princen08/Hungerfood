@@ -35,4 +35,13 @@ router.get("/getOrderById", verifyJWT, async (req, res) => {
   });
 });
 
+router.post("/updateOrder", async (req, res) => {
+  const email = req.body.email;
+  const orderId = req.body.orderId;
+  let curr = await OrderHistory.findOne({ email: email, _id: orderId });
+  curr.collected = true;
+  await curr.save();
+  res.send({ "message": "Updated successfully." });
+});
+
 module.exports = router;
