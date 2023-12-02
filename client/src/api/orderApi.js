@@ -20,12 +20,12 @@ export const addOrderAPI = async (itemsData) => {
   }
 };
 
-export const updateOrderAPI = async (orderId) => {
+export const updateOrderAPI = async (orderId, email) => {
   try {
     const res = axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/order/updateOrder`,
       {
-        email: localStorage.getItem("currUser"),
+        email: email,
         orderId: orderId,
       },
       {

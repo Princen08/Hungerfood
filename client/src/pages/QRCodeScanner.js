@@ -58,7 +58,7 @@ export default function QRCodeScanner() {
 
   const handleCollect = async () => {
     setShowQRCode(true);
-    await updateOrderAPI(orderData?._id)
+    await updateOrderAPI(orderData?._id, orderData?.email)
   }
   return (
     <>
