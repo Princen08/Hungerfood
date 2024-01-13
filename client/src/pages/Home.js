@@ -132,12 +132,12 @@ export default function Home() {
       
       {!loading && (
         <>
-        <div class="flex items-center gap-10">
+        {/* <div class="flex items-center gap-10">
            <hr class="flex-grow"/>
           <span class="text-orange-400 text-2xl font-semibold  font-[Inter]" style={{color:"black"}}>Top Picks</span>
            <hr class="flex-grow"/>
         </div>
-        <TopPicks></TopPicks>
+        <TopPicks></TopPicks> */}
         <div
           ref={mainSection}
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-10"
