@@ -12,34 +12,38 @@ function classNames(...classes) {
 }
 
 export default function Navbar(props) {
+
   const [itemCount, setItemCount] = useState();
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("currUser");
     localStorage.removeItem("token");
     navigate("/");
   };
+
   const handleClick = () => {
     navigate("/cart");
   };
 
-  let navigation = [
+  const navigation = [
     { name: "Home", href: "/home" },
-    { name: "My Orders", href: "/myorders" },
+    { name: "My orders", href: "/myorders" },
   ];
+
+  const cartItems = async () => {
+    const res = await getUserCartItemsAPI();
+    setItemCount(res.data.data.length);
+  }
+
   useEffect(() => {
-    const cartItems = async () => {
-        const res = await getUserCartItemsAPI();
-        setItemCount(res.data.length);
-    }
-    if(!props.count) {
       cartItems();
-    }
-  },[])
+  })
+  
   return (
     <Disclosure
       as="nav"
-      className="bg-black z-20"
+      className="bg-white shadow-lg z-20"
       style={{ fontFamily: "Inter", position: "fixed", top: 0, width: "100%" }}
     >
       {({ open }) => (
@@ -66,12 +70,15 @@ export default function Navbar(props) {
                   className="flex flex-shrink-0 items-center ml-2 sm:ml-2"
                   style={{ gap: 10 }}
                 >
-                  <Logo></Logo>
+                  <a href = "/home">
+                  <Logo style ={{cursor: "pointer"}}></Logo>
+                  </a>
                   <h1
+                  className="font-semibold"
                     style={{
                       fontFamily: "Inter",
-                      color: "white",
-                      fontSize: "1.2rem",
+                      color: "orange",
+                      fontSize: "1.5rem",
                     }}
                   >
                     Hunger Food
@@ -84,13 +91,14 @@ export default function Navbar(props) {
                   >
                     {navigation.map((item) => (
                       <a
+                       style={{cursor: "pointer"}}
                         key={item.name}
                         href={item.href}
                         className={classNames(
                           props.current === item.name
                             ? "bg-slate-200 text-black"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-2xl px-3 py-2 text-sm font-medium"
+                            : "text-black",
+                          "rounded-full px-3 py-2 text-base font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
@@ -108,7 +116,7 @@ export default function Navbar(props) {
                   <FontAwesomeIcon
                     icon={faCartShopping}
                     size="xl"
-                    style={{ color: "#ffffff", cursor: "pointer" }}
+                    style={{ color: "black", cursor: "pointer" }}
                     onClick={handleClick}
                   />
                   {(props.count > 0 || itemCount > 0) && (
@@ -116,13 +124,13 @@ export default function Navbar(props) {
                       className="count"
                       style={{ marginTop: "0.6rem", cursor: "pointer" }}
                     >
-                      {props.count ? props.count: itemCount}
+                      {itemCount}
                     </span>
                   )}
                 </div>
                 <div>
                   <button
-                    className="bg-white hover:bg-slate-700 hover:text-white text-black font-medium py-2 px-4 rounded-3xl"
+                    className="bg-orange-600 hover:bg-orange-400 hover:text-white text-white font-medium py-2 px-4 rounded-3xl"
                     style={{
                       fontFamily: "Inter",
                       position: "inherit",
@@ -146,11 +154,10 @@ export default function Navbar(props) {
                   key={item.name}
                   as="a"
                   href={item.href}
-                  // onClick={handleHome}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-gray-900 text-black"
+                      : "text-black hover:bg-gray-700 hover:text-white",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}

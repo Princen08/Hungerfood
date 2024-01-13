@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 import "../App.css";
 import toast, { Toaster } from "react-hot-toast";
 import {
+  getItem,
   getUserCartItemsAPI,
   removeItemAPI,
   updateItemAPI,
@@ -11,39 +12,54 @@ import {
 import { addOrderAPI } from "../api/orderApi";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar.js";
+import IcTwotoneShoppingCartCheckout from "../assets/IcTwotoneShoppingCartCheckout.js";
+
+
 const qty = new Map();
+
 export default function Cart() {
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState([]);
   const [totalAmt, setTotalAmt] = useState(0);
-  async function getOrder() {
+
+  const getOrder = async () => {
     try {
       const res = await getUserCartItemsAPI();
-      setSelectedItem(res.data);
+      if (res.data.success) {
+        const tempData = [];
+        for(var i = 0; i < res.data.data.length; i++) {
+          qty.set(res.data.data[i].item, res.data.data[i].count);
+          const itemData = await getItem(res.data.data[i].item);
+          tempData.push(itemData.data.data);
+        }
+        setSelectedItem(tempData)
+      }
       setLoading(false);
     } catch {
       console.log("Error while fetching data.");
     }
   }
+
   useEffect(() => {
     getOrder();
   }, []);
+
   useEffect(() => {
-    let curr = 0;
-    for (let i = 0; i < selectedItem.length; i++) {
-      qty.set(selectedItem[i].id, selectedItem[i].count);
-      curr = curr + selectedItem[i].price * selectedItem[i].count;
+    var curr = 0;
+    for(var i = 0; i < selectedItem.length; i++) {
+      curr += qty.get(selectedItem[i]._id) * selectedItem[i].price;
     }
     setTotalAmt(curr);
   }, [selectedItem]);
 
   const increment = async (event) => {
-    let curr = parseInt(event.currentTarget.id);
+    const itemId = event.currentTarget.id;
     try {
-      let prevCount = qty.get(curr);
-      qty.set(curr, prevCount + 1);
-      await updateItemAPI(curr, 1);
+      const prevCount = qty.get(itemId);
+      qty.set(itemId, prevCount + 1);
+      await updateItemAPI(itemId, 1);
     } catch {
       console.log("Error while updating item.");
     }
@@ -51,24 +67,25 @@ export default function Cart() {
   };
 
   const decrement = async (event) => {
-    let curr = parseInt(event.currentTarget.id);
+    const itemId = event.currentTarget.id;
     try {
-      let prevCount = qty.get(curr);
+      let prevCount = qty.get(itemId);
       if (prevCount !== 1) {
-        qty.set(curr, prevCount - 1);
+        qty.set(itemId, prevCount - 1);
       }
-      await updateItemAPI(curr, -1);
+      await updateItemAPI(itemId, -1);
     } catch {
       console.log("Error while updating item.");
     }
     getOrder();
   };
+
   const handleRemove = async (event) => {
-    let curr = parseInt(event.currentTarget.id);
+    const itemId = event.currentTarget.id;
     try {
-      await removeItemAPI(curr);
+      await removeItemAPI(itemId);
       setSelectedItem((current) =>
-        current.filter((order) => order.id !== curr)
+        current.filter((order) => order._id !== itemId)
       );
       toast.success("Item removed successfully.");
     } catch {
@@ -80,29 +97,29 @@ export default function Cart() {
     const data = [];
     selectedItem.forEach((item) => {
       data.push({
-        id: item.id,
-        count: qty.get(item.id),
+        id: item._id,
+        count: qty.get(item._id),
       });
     });
     try {
       const res = await addOrderAPI(data);
-      navigate(`/payment/${res.data}`, {
-        state: { data: data, key: res.data, amount: totalAmt },
+      navigate(`/payment/${res.data.data}`, {
+        state: { data: data, key: res.data.data, amount: totalAmt },
       });
     } catch {
       console.log("Error while adding order details.");
     }
   };
+  
   return (
     <>
-      <NavBar count={selectedItem.length}></NavBar>
+      <NavBar></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
           <SyncLoader loading={loading} color="black" />
         </div>
       )}
       <Toaster position="top-center" reverseOrder={false} />
-      {/* <Modal  data = {selectedItem}/> */}
       {!loading && (
         <div style={{ fontFamily: "Inter" }}>
           <h1 className="mb-10 text-center text-2xl font-bold mt-8">
@@ -117,7 +134,7 @@ export default function Cart() {
             <div className="rounded-lg mb-32 md:w-2/3 ">
               {selectedItem &&
                 selectedItem.map((item, index) => (
-                  <div className="justify-between mb-6 rounded-lg  p-6 shadow-md sm:flex sm:justify-start">
+                  <div key={index} className="justify-between mb-6 rounded-lg  p-6 shadow-md sm:flex sm:justify-start">
                     <img
                       src={item?.src}
                       alt="product"
@@ -138,33 +155,34 @@ export default function Cart() {
                       <div className="mt-4 flex  sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center">
                           <div style={{ scale: 0.8 }}>
-                            <label for="Quantity" class="sr-only">
+                            <label htmlFor="uantity" className="sr-only">
                               {" "}
                               Quantity{" "}
                             </label>
 
-                            <div class="flex items-center rounded">
+                            <div className="flex items-center rounded">
                               <button
-                                id={item.id}
+                                id={item._id}
                                 onClick={decrement}
                                 type="button"
-                                class="w-10 h-10 bg-red-500 leading-10 text-white rounded transition hover:opacity-75"
+                                className="w-10 h-10 bg-red-500 leading-10 text-white rounded transition hover:opacity-75"
                               >
                                 &minus;
                               </button>
 
                               <input
+                                readOnly = {true}
                                 type="number"
                                 id="Quantity"
-                                value={qty.get(item.id)}
-                                class="h-10 w-12 border-2 border-slate-200 rounded text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
+                                value={qty.get(item._id)}
+                                className="h-10 w-12 border-2 border-slate-200 rounded text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                               />
 
                               <button
                                 onClick={increment}
                                 type="button"
-                                id={item.id}
-                                class="w-10 h-10 leading-10 bg-green-500 text-white rounded transition hover:opacity-75"
+                                id={item._id}
+                                className="w-10 h-10 leading-10 bg-green-500 text-white rounded transition hover:opacity-75"
                               >
                                 <span>&#43;</span>
                               </button>
@@ -173,10 +191,10 @@ export default function Cart() {
                         </div>
                         <div className="flex items-center space-x-4">
                           <p className="text-sm ml-2">
-                            Rs. {item.price * qty.get(item.id)}
+                            Rs. {item.price * qty.get(item._id)}
                           </p>
                           <svg
-                            id={item.id}
+                            id={item._id}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -212,15 +230,16 @@ export default function Cart() {
                   </div>
                 </div>
                 <button
-                  className="mt-6 w-full rounded-3xl bg-black py-1.5 font-medium text-blue-50 hover:bg-slate-600"
+                  className="mt-4 flex justify-center w-full rounded-3xl bg-orange-600 py-2 font-medium text-blue-50 hover:bg-orange-400"
                   onClick={handleCheckOut}
                 >
-                  Check out
+                  <span>Check out</span>
+                  <IcTwotoneShoppingCartCheckout/>
                 </button>
               </div>
             )}
           </div>
-          <div className="h-40 md:h-28">
+          <div className="h-40 mt-96 md:h-28 md:mt-64">
             <Footer></Footer>
           </div>
         </div>

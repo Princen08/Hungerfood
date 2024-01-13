@@ -10,7 +10,8 @@ export default function Verify() {
   const location = useLocation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
-  async function addUser() {
+  
+  const addUser = async () => {
     try {
       const res = await userSignUpAPI(
         location.state.name,
@@ -24,6 +25,7 @@ export default function Verify() {
       console.log("Error while adding user in database.");
     }
   }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (otp == location.state.otp) {
@@ -34,6 +36,7 @@ export default function Verify() {
       toast.error("OTP does not match. Please try again!");
     }
   };
+
   return (
     <>
       {location.state?.email ? (
@@ -45,7 +48,7 @@ export default function Verify() {
           <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
             <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
               <div className="flex flex-col items-center justify-center text-center space-y-2">
-                <div className="font-semibold text-3xl">
+                <div className="font-semibold text-orange-600 font-[Inter] text-3xl">
                   <p>Email Verification</p>
                 </div>
                 <div className="flex flex-row text-sm font-medium text-gray-400">
@@ -88,7 +91,7 @@ export default function Verify() {
                     <div>
                       <button
                         onClick={handleSubmit}
-                        className="flex flex-row items-center justify-center text-center w-full border rounded-full outline-none py-5 bg-black border-none text-white text-sm shadow-sm hover:bg-slate-700"
+                        className="flex flex-row items-center justify-center text-center w-full border rounded-full outline-none py-5 bg-orange-600 border-none text-white text-sm shadow-sm hover:bg-orange-400"
                       >
                         Verify Account
                       </button>

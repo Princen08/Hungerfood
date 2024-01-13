@@ -15,33 +15,33 @@ import Background from "../components/Background";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import "react-loading-skeleton/dist/skeleton.css";
+import TopPicks from "../components/TopPicks";
 
-let currOrder = [];
+
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [itemList, setItemList] = useState([]);
   const [searchResultList, setSearchResultList] = useState(itemList);
   const [selectedItem, setSelectedItem] = useState([]);
-
   const mainSection = useRef(null);
-  async function getOrder() {
-    currOrder = [];
+
+  const getOrder = async () => {
     try {
       const res = await getUserCartItemsAPI();
-      res?.data?.forEach((element) => {
-        if (!currOrder.includes(element.id)) currOrder.push(element.id);
-      });
+      setSelectedItem(res.data.data.map(getId));
+      function getId(item) {
+        return item.item;
+      }
     } catch (err) {
       console.log(err);
     }
-    setSelectedItem(currOrder);
-  }
+  };
 
-  async function getMenu() {
+  const getMenu = async () => {
     try {
       const res = await getItemsMenuAPI();
-      setItemList(res.data);
-      setSearchResultList(res.data);
+      setItemList(res.data.data);
+      setSearchResultList(res.data.data);
       setLoading(false);
     } catch (err) {
       console.log("Error while fetching data.");
@@ -49,51 +49,21 @@ export default function Home() {
   }
 
   const handleClick = async (event) => {
-    // add item
-    let curr = parseInt(event.currentTarget.id);
-    if (event.currentTarget.innerText === "Add to cart") {
-      if (!currOrder.includes(curr)) {
-        currOrder.push(curr);
-        setSelectedItem([...selectedItem, curr]);
-      }
-      event.currentTarget.innerText = "Remove";
-      event.currentTarget.style.backgroundColor = "#f21b1b";
-      try {
-        const res = await getItem(curr);
-        try {
-          await addItemAPI(
-            curr,
-            res.data[0].name,
-            res.data[0].price,
-            res.data[0].category,
-            res.data[0].src
-          );
-        } catch {
-          console.log("Error while adding item.");
-        }
-      } catch (err) {
-        console.log("Error while fetching data.");
-      }
-    } else {
+    const itemId = event.currentTarget.id;
+    if (selectedItem.includes(itemId)) {
       // remove item
-      event.currentTarget.innerText = "Add to cart";
-      event.currentTarget.style.backgroundColor = "black";
-      setSelectedItem((current) => current.filter((order) => order !== curr));
-      try {
-        let index = currOrder.indexOf(curr); // Find the index of the element
-        if (index !== -1) {
-          currOrder.splice(index, 1); // Remove the element at the found index
-        }
-        await removeItemAPI(curr);
-      } catch {
-        console.log("Error while removing item.");
-      }
+      const updatedCart = selectedItem.filter((item) => item !== itemId);
+      setSelectedItem(updatedCart);
+      await removeItemAPI(itemId);
+    } else {
+      // add item
+      setSelectedItem([...selectedItem, itemId]);
+      await addItemAPI(itemId);
     }
   };
+  
   useEffect(() => {
     getOrder();
-  }, []);
-  useEffect(() => {
     getMenu();
   }, []);
 
@@ -123,14 +93,14 @@ export default function Home() {
 
   return (
     <>
-      <NavBar count={currOrder.length} current={"Home"}></NavBar>
+      <NavBar current={"Home"}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
           <SyncLoader color="black" loading={loading} />
         </div>
       )}
       {!loading && (
-        <div className="relative mt-20 ml-8 mr-8 z-10">
+        <div className="relative mt-28 md:mx-40 m-4 z-10">
           <ReactSearchAutocomplete
             styling={{
               fontFamily: "Inter",
@@ -159,14 +129,23 @@ export default function Home() {
           </div>
         </>
       )}
+      
       {!loading && (
+        <>
+        <div class="flex items-center gap-10">
+           <hr class="flex-grow"/>
+          <span class="text-orange-400 text-2xl font-semibold  font-[Inter]" style={{color:"black"}}>Top Picks</span>
+           <hr class="flex-grow"/>
+        </div>
+        <TopPicks></TopPicks>
         <div
           ref={mainSection}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 m-10 mb-44"
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-10"
         >
           {searchResultList &&
             searchResultList?.map((item, index) => (
               <div
+                key={index}
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}
               >
@@ -189,22 +168,25 @@ export default function Home() {
                       Rs. {item.price}
                     </span>
                     <button
-                      id={item.id}
+                      id={item._id}
                       className="text-white  py-2 px-4 rounded-3xl"
                       style={{
-                        backgroundColor: currOrder.includes(item.id)
+                        backgroundColor: selectedItem.includes(item._id)
                           ? "#f21b1b"
-                          : "black",
+                          : "#EA580C",
                       }}
                       onClick={handleClick}
                     >
-                      {!currOrder.includes(item.id) ? "Add to cart" : "Remove"}
+                      {!selectedItem.includes(item._id)
+                        ? "Add to cart"
+                        : "Remove"}
                     </button>
                   </div>
                 </div>
               </div>
             ))}
         </div>
+        </>
       )}
       {!loading && <Footer></Footer>}
     </>

@@ -1,38 +1,27 @@
 const mongoose = require("mongoose");
 
-const ReactFormDataSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-  },
-  id: {
-    type: Number,
-    ref: "Item",
+const Item = require("./itemSchema")
+
+const cartItem = new mongoose.Schema({
+  item: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Item"
   },
   count: {
-    type: Number,
-    required: true,
-  },
-  timestamp: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  src: {
-    type: String,
-  },
-});
+    type:Number,
+    default: 1
+  }
+})
 
-const Order = mongoose.model("Order", ReactFormDataSchema);
+const orderSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    require: true
+  },
+  items: [cartItem]
+}, { timestamps: true });
+
+const Order = mongoose.model("Order", orderSchema);
+
 module.exports = Order;

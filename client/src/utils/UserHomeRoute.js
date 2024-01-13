@@ -7,10 +7,11 @@ import { isLoggedIn } from "../api/authApi";
 const UserHomeRoute = () => {
   const navigate = useNavigate();
   const [isisAuthenticated, setIsisAuthenticated] = useState(false);
+
   useEffect(() => {
     const checkUser = async () => {
       const res = await isLoggedIn();
-      if (res.data.auth) {
+      if (res.data.success) {
         setIsisAuthenticated(true);
         return navigate("/home");
       }

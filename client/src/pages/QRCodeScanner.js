@@ -60,6 +60,7 @@ export default function QRCodeScanner() {
     setShowQRCode(true);
     await updateOrderAPI(orderData?._id, orderData?.email)
   }
+  
   return (
     <>
       <div>

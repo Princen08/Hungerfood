@@ -54,7 +54,7 @@ export const getItemsMenuAPI = async () => {
   }
 };
 
-export const addItemAPI = async (id, name, price, category, src) => {
+export const addItemAPI = async (id) => {
   try {
     const res = await axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/item/addItem`,
@@ -62,10 +62,6 @@ export const addItemAPI = async (id, name, price, category, src) => {
         id: id,
         email: localStorage.getItem("currUser"),
         count: 1,
-        name: name,
-        price: price,
-        category: category,
-        src: src,
       },
       {
         headers: {
@@ -99,14 +95,12 @@ export const removeItemAPI = async (id) => {
 
 export const updateItemAPI = async (id, type) => {
   try {
-    const res = await axios.post(
+    const res = await axios.patch(
       `${process.env.REACT_APP_API_BASE_URL}/item/updateItem`,
       {
-        params: {
           email: localStorage.getItem("currUser"),
           id: id,
           type: type,
-        },
       },
       {
         headers: {

@@ -7,6 +7,7 @@ import { ReactComponent as Logo } from "../assets/Logo.svg";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Auth() {
+
   const navigate = useNavigate();
   const [isSignIn, setIsSignIn] = useState(true);
   const [name, setName] = useState("");
@@ -14,7 +15,8 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(false);
-  let otp = "";
+  const [otp, setOtp] = useState();
+
   useEffect(() => {
     setEmail("");
     setName("");
@@ -26,30 +28,28 @@ export default function Auth() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  async function handleVerification() {
-    otp = randomNumberInRange(1000, 9999);
+  const handleVerification = async () => {
+    setOtp(randomNumberInRange(1000, 9999));
     const res = await userVerifyAPI(email, otp);
-    if (res === "Success") {
-      navigate("/verify", {
+    if (res.success) {
+      navigate("/verify", { 
         state: { email: email, otp: otp, name: name, password: password },
       });
-    } else if (res === "User exist") {
-      setShowLoader(false);
-      toast.error("User already exist. Please log In.");
     } else {
       setShowLoader(false);
-      toast.error("User already exist. Please log In.");
+      toast.error(res.message);
     }
   }
-  async function handleSignIn() {
+
+  const handleSignIn = async () => {
     const res = await userSignInAPI(email, password);
-    if (res.auth) {
-      localStorage.setItem("token", "Bearer " + res.token);
+    if (res.success) {
+      localStorage.setItem("token", "Bearer " + res.data.token);
       localStorage.setItem("currUser", email);
       navigate("/home", { state: { email: email } });
       setShowLoader(false);
     } else {
-      toast.error("User is not valid. Please check email or password.");
+      toast.error(res.message);
       setShowLoader(false);
     }
   }
@@ -68,6 +68,7 @@ export default function Auth() {
       handleSignIn();
     }
   };
+  
   const handleChange = () => {
     setIsSignIn(!isSignIn);
   };
@@ -87,7 +88,7 @@ export default function Auth() {
             <Logo style={{ marginBottom: "35rem" }}></Logo>
           </div>
           <div style={{ paddingRight: "10rem" }}>
-            <h1 className="text-white font-bold text-4xl">Hunger Food </h1>
+            <h1 className="text-orange-500 font-bold text-4xl">Hunger Food </h1>
           </div>
         </div>
         <div className="flex flex-col md:w-1/2 mt-4 justify-center  items-center bg-white">
@@ -176,12 +177,13 @@ export default function Auth() {
                     name="password"
                     type="password"
                     placeholder="Password"
+                    autoComplete="on"
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  className="block w-full bg-black mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-slate-700"
+                  className="block w-full bg-orange-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-orange-400"
                   // onClick={handleSubmit}
                 >
                   <div className="flex justify-center  items-center">
@@ -189,7 +191,7 @@ export default function Auth() {
                       <svg
                         aria-hidden="true"
                         role="status"
-                        class="inline mr-3 w-4 h-4 text-white animate-spin"
+                        className="inline mr-3 w-4 h-4 text-white animate-spin"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -272,12 +274,13 @@ export default function Auth() {
                     name="password"
                     type="password"
                     placeholder="Password"
+                    autoComplete="on"
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  className="block w-full bg-black mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-slate-700"
+                  className="block w-full bg-orange-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2 hover:bg-orange-400"
                   // onClick={handleSubmit}
                 >
                   <div className="flex justify-center  items-center">
@@ -285,7 +288,7 @@ export default function Auth() {
                       <svg
                         aria-hidden="true"
                         role="status"
-                        class="inline mr-3 w-4 h-4 text-white animate-spin"
+                        className="inline mr-3 w-4 h-4 text-white animate-spin"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

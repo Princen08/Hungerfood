@@ -72,7 +72,7 @@ body {
 
 .landing-page .div {
   background-color: #ffffff;
-  height: 734px;
+  height: 550px;
   overflow: hidden;
   position: relative;
   width: 1780px;
@@ -87,7 +87,6 @@ body {
 }
 
 .landing-page .ellipse {
-  background-color: #b6b6e2;
   border-radius: 588px;
   /* height: 1176px; */
   /* left: 229px; */
@@ -122,13 +121,12 @@ body {
 }
 
 .landing-page .text-wrapper {
-  color: #333333;
+
   /* font-family: "Poppins-Regular", Helvetica; */
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
   line-height: normal;
-  margin-top: -1px;
   position: relative;
   width: fit-content;
 }
@@ -157,7 +155,7 @@ body {
 }
 
 .landing-page .text-wrapper-2 {
-  color: #333333;
+
   /* font-family: "Poppins-Bold", Helvetica; */
   font-size: 18px;
   font-weight: 700;
@@ -179,19 +177,19 @@ body {
 }
 
 .landing-page .text-wrapper-3 {
-  color: #000000;
+
   /* font-family: "Poppins-Medium", Helvetica; */
   font-size: 36px;
   font-weight: 500;
   letter-spacing: 0;
   line-height: normal;
-  margin-top: -1px;
+  margin-top: -100px;
   position: relative;
   width: fit-content;
 }
 
 .landing-page .p {
-  color: #616161;
+
   /* font-family: "Poppins-Medium", Helvetica; */
   font-size: 17px;
   font-weight: 500;
@@ -213,7 +211,6 @@ body {
 }
 
 .landing-page .text-wrapper-4 {
-  color: #ffffff;
   /* font-family: "Poppins-Bold", Helvetica; */
   font-size: 16px;
   font-weight: 700;

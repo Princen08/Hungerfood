@@ -1,24 +1,30 @@
 import { getItem } from "../api/itemApi";
 import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState} from "react";
 import Footer from "./Footer";
 export default function DetailsList() {
+
   const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [itemsList, setItemList] = useState([]);
   const [totalAmt, setTotalAmt] = useState(0);
+
   useEffect(() => {
     setItemList([]);
     let total = 0;
-    location.state.data.items.forEach(async (element) => {
-      let res = await getItem(element.id);
+    const orderData = location.state.data;
+    console.log(orderData)
+    orderData.items.forEach(async (element) => {
+      let res = await getItem(element._id);
       res["count"] = element.count;
-      total += element.count * res.data[0].price;
+      total += element.count * res.data.data.price;
       setTotalAmt(total);
       setItemList((prev) => [...prev, res]);
     });
   }, [loading]);
+
+
   return (
     <>
       <Navbar></Navbar>
@@ -28,7 +34,7 @@ export default function DetailsList() {
           style={{ fontFamily: "Inter", color: "black" }}
         >
           <div className="px-4 sm:px-0">
-            <h3 className="text-2xl font-bold leading-7 text-gray-900">
+            <h3 className="text-xl font-semibold leading-7 text-gray-900">
               Order Information
             </h3>
           </div>
@@ -47,7 +53,7 @@ export default function DetailsList() {
                   Time
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {location.state.data.timestamp}
+                  {location.state.data.purchaseAt}
                 </dd>
               </div>
               <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -89,18 +95,18 @@ export default function DetailsList() {
                                 scope="row"
                                 className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
                               >
-                                {itemsList[index].data[0].name}
+                                {itemsList[index].data.data.name}
                               </th>
                               <td className="px-6 py-4">
                                 {itemsList[index].count}
                               </td>
                               <td className="px-6 py-4">
                                 {" "}
-                                {itemsList[index].data[0].price}
+                                {itemsList[index].data.data.price}
                               </td>
                               <td className="px-6 py-4">
                                 {" "}
-                                {itemsList[index].data[0].price *
+                                {itemsList[index].data.data.price *
                                   itemsList[index].count}
                               </td>
                             </tr>

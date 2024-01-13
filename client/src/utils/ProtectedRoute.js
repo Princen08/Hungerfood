@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProtectedRoute = (props) => {
+  
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const checkUser = () => {
       const userToken = localStorage.getItem("token");

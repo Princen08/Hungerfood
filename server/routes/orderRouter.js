@@ -9,22 +9,18 @@ router.post("/addOrder", verifyJWT, async (req, res) => {
   const itemsData = req.body.items;
   const data = new OrderHistory({
     email: email,
-    timestamp: new Date().toLocaleString(undefined, {
-      timeZone: "Asia/Kolkata",
-    }),
     items: itemsData,
     collected: false
   });
   const order = await data.save();
-  res.send(order._id);
+  return res.json({success: true, data:order._id});
 });
 
 router.get("/getOrder", verifyJWT, async (req, res) => {
   const email = req.query.email;
   const collected = false;
-  OrderHistory.find({ email: email,collected: collected}).then(function (data, docs) {
-    res.send(data);
-  });
+  const ordersData = await OrderHistory.find({email: email, collected: false});
+  return res.json({success: true, data: ordersData});
 });
 
 router.get("/getOrderById", verifyJWT, async (req, res) => {

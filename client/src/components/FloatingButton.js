@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function FloatingButton() {
   const navigate = useNavigate();
+  
   const OpenQRScanner = () => {
     navigate("/qrcode");
   };
+
   return (
     <>
       <div className="group fixed bottom-0 right-0 p-2  flex items-end justify-end w-24 h-24 ">

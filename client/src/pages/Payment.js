@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { removeItemAPI } from "../api/itemApi";
 
 export default function Payment() {
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -47,6 +48,7 @@ export default function Payment() {
     const rpz = new window.Razorpay(options);
     rpz.open();
   };
+
   const handlePayement = async () => {
     try {
       const { data } = await axios.post(
@@ -58,6 +60,7 @@ export default function Payment() {
       console.log(error);
     }
   };
+  
   useEffect(() => {
     handlePayement();
   }, []);
