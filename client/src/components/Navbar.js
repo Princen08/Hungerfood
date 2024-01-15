@@ -33,11 +33,15 @@ export default function Navbar(props) {
 
   const cartItems = async () => {
     const res = await getUserCartItemsAPI();
-    setItemCount(res.data.data.length);
+    setItemCount(res.data.data?.length);
   }
 
   useEffect(() => {
+     if(!props?.count) {
       cartItems();
+     } else {
+      setItemCount(props.count);
+     }
   })
   
   return (

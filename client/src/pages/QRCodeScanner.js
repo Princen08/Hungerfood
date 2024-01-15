@@ -10,6 +10,32 @@ export default function QRCodeScanner() {
   const videoRef = useRef(null);
   const [itemList, setItemList] = useState([]);
   
+  const handleScan = async (data) => {
+    setItemList([]);
+    setData(data);
+    const order = JSON.parse(data);
+    let mainData = {};
+    mainData.email = order?.email;
+    mainData.timestamp = order?.timestamp;
+    mainData._id = order?._id;
+
+    order?.items.forEach(async (element) => {
+      let res = await getItem(element.id);
+      res["count"] = element.count;
+      setItemList((item) => [...item, {"count": res.count, "name": res?.data[0]?.name}]);
+    });
+    setOrderData(order);
+
+    if (data) {
+      setShowQRCode(false);
+    }
+  };
+
+  const handleCollect = async () => {
+    setShowQRCode(true);
+    const res = await updateOrderAPI(orderData?._id, orderData?.email);
+    setData(res.data.data);
+  }
 
   useEffect(() => {
     // Function to request camera access
@@ -35,32 +61,6 @@ export default function QRCodeScanner() {
     getCameraAccess();
   }, []);
   
-  const handleScan = async (data) => {
-    setItemList([]);
-    setData(data);
-    const order = JSON.parse(data);
-    let mainData = {};
-    mainData.email = order?.email;
-    mainData.timestamp = order?.timestamp;
-    mainData._id = order?._id;
-
-    order?.items.forEach(async (element) => {
-      let res = await getItem(element.id);
-      res["count"] = element.count;
-      setItemList((item) => [...item, {"count": res.count, "name": res?.data[0]?.name}]);
-    });
-    setOrderData(order);
-
-    if (data) {
-      setShowQRCode(false);
-    }
-  };
-
-  const handleCollect = async () => {
-    setShowQRCode(true);
-    await updateOrderAPI(orderData?._id, orderData?.email)
-  }
-  
   return (
     <>
       <div>
@@ -81,7 +81,7 @@ export default function QRCodeScanner() {
             }}
           />
         )}
-       {!showQRCode && (
+       {!showQRCode && data.success (
         <div
           className="px-20 py-20 text-gray-700"
           style={{ fontFamily: "Inter", color: "black" }}
@@ -167,6 +167,14 @@ export default function QRCodeScanner() {
                   >
                     Done
                   </button>
+        </div>
+      )}
+      {!showQRCode && !data.success (
+        <div
+          className="px-20 py-20 text-gray-700"
+          style={{ fontFamily: "Inter", color: "black" }}
+        >
+          data.message
         </div>
       )}
       </div>

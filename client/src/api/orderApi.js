@@ -40,7 +40,7 @@ export const updateOrderAPI = async (orderId, email) => {
   }
 };
 
-export const getOrderAPI = async (orderId) => {
+export const getOrderAPI = async () => {
   try {
     const res = axios.get(
       `${process.env.REACT_APP_API_BASE_URL}/order/getOrder`,

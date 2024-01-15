@@ -14,13 +14,10 @@ export default function MyOrders() {
 
   const getOrders = async () => {
     const res = await getOrderAPI();
+    console.log(res.data.data)
     setLoading(false);
     setOrderList(res.data.data);
   };
-
-  useEffect(() => {
-    getOrders();
-  }, []);
 
   const showQRCode = (orderDeatils) => {
     navigate(`/order/${orderDeatils._id}`, {
@@ -33,6 +30,10 @@ export default function MyOrders() {
       state: { data: orderDeatils, key: orderDeatils._id },
     });
   };
+
+  useEffect(() => {
+    getOrders();
+  }, []);
   
   return (
     <>
@@ -55,10 +56,13 @@ export default function MyOrders() {
                     <h2 className="text-md mt-2 text-gray-900 break-words">
                       Ordered At: {order.purchaseAt}
                     </h2>
+                    <div className="mt-4"> 
+                      {order.collected ? <span class="bg-green-100 w-text-green-800 text-xs font-medium me-2 px-2.5 py-2 rounded-full dark:bg-green-900 dark:text-green-300">Collected</span>: <span  className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-2 rounded-full dark:bg-red-900 dark:text-red-300">Not Collected</span>}
+                    </div>
                   </div>
                   <div className="mt-4 flex  sm:space-y-2 sm:mt-0 sm:block sm:space-x-6">
-                    <div className="flex items-center gap-4 mt-3">
-                      <button
+                    <div className="flex md:flex-col items-center gap-4 mt-3">
+                      {!order.collected && (<button
                         className="bg-orange-500 hover:bg-orange-300 text-white font-bold py-2 px-4 rounded-3xl"
                         style={{
                           fontFamily: "Inter",
@@ -67,7 +71,7 @@ export default function MyOrders() {
                         onClick={() => showQRCode(order)}
                       >
                         QR Code
-                      </button>
+                      </button> )}
                       <button
                         className="bg-orange-500 hover:bg-orange-300 text-white font-bold py-2 px-4 rounded-3xl"
                         style={{

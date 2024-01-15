@@ -23,42 +23,13 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState([]);
   const [totalAmt, setTotalAmt] = useState(0);
-
-  const getOrder = async () => {
-    try {
-      const res = await getUserCartItemsAPI();
-      if (res.data.success) {
-        const tempData = [];
-        for(var i = 0; i < res.data.data.length; i++) {
-          qty.set(res.data.data[i].item, res.data.data[i].count);
-          const itemData = await getItem(res.data.data[i].item);
-          tempData.push(itemData.data.data);
-        }
-        setSelectedItem(tempData)
-      }
-      setLoading(false);
-    } catch {
-      console.log("Error while fetching data.");
-    }
-  }
-
-  useEffect(() => {
-    getOrder();
-  }, []);
-
-  useEffect(() => {
-    var curr = 0;
-    for(var i = 0; i < selectedItem.length; i++) {
-      curr += qty.get(selectedItem[i]._id) * selectedItem[i].price;
-    }
-    setTotalAmt(curr);
-  }, [selectedItem]);
-
+  
   const increment = async (event) => {
     const itemId = event.currentTarget.id;
     try {
-      const prevCount = qty.get(itemId);
-      qty.set(itemId, prevCount + 1);
+      const itemData = selectedItem.findIndex((item => item._id === itemId));
+      const prevCount = selectedItem[itemData].count;
+      selectedItem[itemData].count = prevCount + 1;
       await updateItemAPI(itemId, 1);
     } catch {
       console.log("Error while updating item.");
@@ -69,11 +40,12 @@ export default function Cart() {
   const decrement = async (event) => {
     const itemId = event.currentTarget.id;
     try {
-      let prevCount = qty.get(itemId);
-      if (prevCount !== 1) {
-        qty.set(itemId, prevCount - 1);
+      const itemData = selectedItem.findIndex((item => item._id === itemId));
+      const prevCount = selectedItem[itemData].count;
+      if (prevCount > 1) {
+        selectedItem[itemData].count = prevCount - 1;
+        await updateItemAPI(itemId, -1);
       }
-      await updateItemAPI(itemId, -1);
     } catch {
       console.log("Error while updating item.");
     }
@@ -110,10 +82,42 @@ export default function Cart() {
       console.log("Error while adding order details.");
     }
   };
-  
+
+  const getOrder = async () => {
+    try {
+      const res = await getUserCartItemsAPI();
+      if (res.data.success) {
+        const tempData = [];
+        for(var i = 0; i < res.data.data.length; i++) {
+          qty.set(res.data.data[i].item, res.data.data[i].count);
+          const itemData = await getItem(res.data.data[i].item);
+          itemData.data.data["count"] = res.data.data[i].count;
+          tempData.push(itemData.data.data);
+        }
+        setSelectedItem(tempData)
+      }
+      setLoading(false);
+    } catch {
+      console.log("Error while fetching data.");
+    }
+  }
+
+  useEffect(() => {
+    getOrder();
+  }, []);
+
+  useEffect(() => {
+    console.log(selectedItem);
+    var curr = 0;
+    for(var i = 0; i < selectedItem.length; i++) {
+      curr += qty.get(selectedItem[i]._id) * selectedItem[i].price;
+    }
+    setTotalAmt(curr);
+  }, [selectedItem]);
+
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar count = {selectedItem.length}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
           <SyncLoader loading={loading} color="black" />
@@ -174,7 +178,7 @@ export default function Cart() {
                                 readOnly = {true}
                                 type="number"
                                 id="Quantity"
-                                value={qty.get(item._id)}
+                                value={item.count}
                                 className="h-10 w-12 border-2 border-slate-200 rounded text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                               />
 
@@ -191,7 +195,7 @@ export default function Cart() {
                         </div>
                         <div className="flex items-center space-x-4">
                           <p className="text-sm ml-2">
-                            Rs. {item.price * qty.get(item._id)}
+                            Rs. {item.price * item.count}
                           </p>
                           <svg
                             id={item._id}

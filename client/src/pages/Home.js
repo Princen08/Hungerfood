@@ -17,8 +17,8 @@ import NavBar from "../components/Navbar";
 import "react-loading-skeleton/dist/skeleton.css";
 import TopPicks from "../components/TopPicks";
 
-
 export default function Home() {
+
   const [loading, setLoading] = useState(true);
   const [itemList, setItemList] = useState([]);
   const [searchResultList, setSearchResultList] = useState(itemList);
@@ -61,11 +61,6 @@ export default function Home() {
       await addItemAPI(itemId);
     }
   };
-  
-  useEffect(() => {
-    getOrder();
-    getMenu();
-  }, []);
 
   const handleOnSearch = (string, results) => {
     if (results.length === 0) {
@@ -90,10 +85,16 @@ export default function Home() {
       </>
     );
   };
+  
+  useEffect(() => {
+    getOrder();
+    getMenu();
+  }, []);
+
 
   return (
     <>
-      <NavBar current={"Home"}></NavBar>
+      <NavBar count = {selectedItem.length} current={"Home"}></NavBar>
       {loading && (
         <div className="flex items-center justify-center h-screen">
           <SyncLoader color="black" loading={loading} />

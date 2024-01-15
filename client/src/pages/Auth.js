@@ -7,7 +7,6 @@ import { ReactComponent as Logo } from "../assets/Logo.svg";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Auth() {
-
   const navigate = useNavigate();
   const [isSignIn, setIsSignIn] = useState(true);
   const [name, setName] = useState("");
@@ -17,12 +16,19 @@ export default function Auth() {
   const [showLoader, setShowLoader] = useState(false);
   const [otp, setOtp] = useState();
 
-  useEffect(() => {
-    setEmail("");
-    setName("");
-    setPassword("");
-    setShowLoader(false);
-  }, [isSignIn]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setShowLoader(true);
+    if (!isSignIn) {
+      handleVerification();
+    } else {
+      handleSignIn();
+    }
+  };
+  
+  const handleChange = () => {
+    setIsSignIn(!isSignIn);
+  };
 
   const randomNumberInRange = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -46,7 +52,7 @@ export default function Auth() {
     if (res.success) {
       localStorage.setItem("token", "Bearer " + res.data.token);
       localStorage.setItem("currUser", email);
-      navigate("/home", { state: { email: email } });
+      navigate("/home");
       setShowLoader(false);
     } else {
       toast.error(res.message);
@@ -59,19 +65,13 @@ export default function Auth() {
     setTimeout(() => setLoading(false), 1500);
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setShowLoader(true);
-    if (!isSignIn) {
-      handleVerification();
-    } else {
-      handleSignIn();
-    }
-  };
+  useEffect(() => {
+    setEmail("");
+    setName("");
+    setPassword("");
+    setShowLoader(false);
+  }, [isSignIn]);
   
-  const handleChange = () => {
-    setIsSignIn(!isSignIn);
-  };
 
   return (
     <>
