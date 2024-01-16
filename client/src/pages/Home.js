@@ -17,6 +17,7 @@ import NavBar from "../components/Navbar";
 import "react-loading-skeleton/dist/skeleton.css";
 import TopPicks from "../components/TopPicks";
 
+
 export default function Home() {
 
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,8 @@ export default function Home() {
     } catch (err) {
       console.log("Error while fetching data.");
     }
-  }
+  } 
+ 
 
   const handleClick = async (event) => {
     const itemId = event.currentTarget.id;
@@ -133,15 +135,16 @@ export default function Home() {
       
       {!loading && (
         <>
-        {/* <div class="flex items-center gap-10">
-           <hr class="flex-grow"/>
-          <span class="text-orange-400 text-2xl font-semibold  font-[Inter]" style={{color:"black"}}>Top Picks</span>
-           <hr class="flex-grow"/>
+        <div class="flex justify-center items-center gap-10 invisible md:visible">
+        <h1 class=" text-2xl font-extrabold leading-none tracking-tight font-[Inter] text-orange-800 md:text-2xl lg:text-2xl">Top picks</h1>
+          {/* <span class="text-green-600 text-2xl font-semibold  font-[roboto]">Top Picks</span> */}
         </div>
-        <TopPicks></TopPicks> */}
+        <div className="mt-4 invisible md:visible">
+        <TopPicks></TopPicks>
+        </div>
         <div
           ref={mainSection}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-10"
+          className=" mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 mx-10"
         >
           {searchResultList &&
             searchResultList?.map((item, index) => (
@@ -150,24 +153,24 @@ export default function Home() {
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
                 style={{ fontFamily: "Inter" }}
               >
-                <LazyLoadImage
+                <img
+                referrerPolicy="no-referrer"
                   key={item.id}
                   className="p-8 rounded-t-lg"
                   alt="product"
                   src={item?.src}
                   placeholderSrc={require("../assets/photo.png")}
-                />
+                ></img>
                 {/* {!isImageLoaded.get(item.id) && t && (<Skeleton square height={200} className="pt-2"></Skeleton>)} */}
                 <div className="px-5 pb-5">
                   <span>
+                  {/* <span class="bg-blue-100 text-blue-800 text-xl font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"> {item.name}</span> */}
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                      {item.name}
+                     {item.name}
                     </h5>
                   </span>
                   <div className="flex items-center justify-between mt-6">
-                    <span className="text-1xl font-bold text-gray-900 dark:text-white">
-                      Rs. {item.price}
-                    </span>
+                  <span class="bg-green-300 text-green-900 text-xs font-medium me-2 px-3 py-1.5 rounded-full dark:bg-green-900 dark:text-green-300">Rs. {item.price}</span>
                     <button
                       id={item._id}
                       className="text-white  py-2 px-4 rounded-3xl"

@@ -13,6 +13,7 @@ import ProtectedRoute from "./utils/ProtectedRoute.js";
 import Error from "./components/Error.js";
 import UserHomeRoute from "./utils/UserHomeRoute.js";
 import { UseSelector } from "react-redux";
+import TopPicks from "./components/TopPicks.js";
 export default function App() {
 
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/" element={<UserHomeRoute></UserHomeRoute>} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/error" element={<Error />} />
+        <Route path="/test" element={<TopPicks/>} />
         <Route
           path="/home"
           element={

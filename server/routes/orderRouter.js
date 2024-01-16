@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require('moment');
 
 const OrderHistory = require("../models/orderHistorySchema");
 
@@ -10,6 +11,7 @@ router.post("/addOrder", verifyJWT, async (req, res) => {
   const data = new OrderHistory({
     email: email,
     items: itemsData,
+    purchaseAt: moment().utcOffset("+05:30").format('MMMM Do YYYY, h:mm:ss a'),
     collected: false
   });
   const order = await data.save();
