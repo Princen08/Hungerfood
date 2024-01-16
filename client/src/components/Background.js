@@ -1,6 +1,7 @@
 import React from "react";
 // import { Image } from "./Image";
 import "../App.css";
+import MaterialSymbolsShoppingCartOutlineRounded from "../assets/MaterialSymbolsShoppingCartOutlineRounded";
 
 export default function Background(props) {
 
@@ -27,11 +28,12 @@ export default function Background(props) {
               flavors, savor moments.
             </p>
             <button
-              className="font-medium font-white rounded-3xl bg-orange-600 px-4 py-2 hover:bg-orange-400"
+              className="flex gap-2 font-medium font-white rounded-3xl bg-orange-600 px-4 py-2 hover:bg-orange-400"
               style={{ color: "white" }}
               onClick={handleClick}
             >
               Buy Now
+              <span className="mt-1"><MaterialSymbolsShoppingCartOutlineRounded color = {"white"} size = {"1rem"}/></span>
             </button>
           </div>
         </div>

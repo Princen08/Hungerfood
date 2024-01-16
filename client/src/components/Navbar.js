@@ -6,6 +6,9 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { getUserCartItemsAPI } from "../api/itemApi";
+import MaterialSymbolsHomeOutlineRounded from "../assets/MaterialSymbolsHomeOutlineRounded";
+import MaterialSymbolsShoppingBagOutlineSharp from "../assets/MaterialSymbolsShoppingBagOutlineSharp";
+import MaterialSymbolsShoppingCartOutlineRounded from "../assets/MaterialSymbolsShoppingCartOutlineRounded";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,8 +30,8 @@ export default function Navbar(props) {
   };
 
   const navigation = [
-    { name: "Home", href: "/home" },
-    { name: "My orders", href: "/myorders" },
+    { name: "Home", href: "/home", icon: <MaterialSymbolsHomeOutlineRounded/> },
+    { name: "My orders", href: "/myorders", icon: <MaterialSymbolsShoppingBagOutlineSharp/>},
   ];
 
   const cartItems = async () => {
@@ -39,6 +42,7 @@ export default function Navbar(props) {
   useEffect(() => {
      if(!props?.count) {
       cartItems();
+      // setItemCount(0)
      } else {
       setItemCount(props.count);
      }
@@ -59,7 +63,7 @@ export default function Navbar(props) {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md  text-gray-400 hover:bg-gray-700 hover:text-white">
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md  text-gray-400">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -93,7 +97,8 @@ export default function Navbar(props) {
                     className="flex space-x-4"
                     style={{ fontFamily: "Inter", cursor: "pointer" }}
                   >
-                    {navigation.map((item) => (
+                    {navigation.map((item, index) => (
+                    
                       <a
                        style={{cursor: "pointer"}}
                         key={item.name}
@@ -102,10 +107,11 @@ export default function Navbar(props) {
                           props.current === item.name
                             ? "bg-slate-200 text-black"
                             : "text-black",
-                          "rounded-full px-3 py-2 text-base font-medium"
+                          "flex gap-2 rounded-full px-3 py-2 text-base font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
+                        <span className="mt-1">{item.icon}</span>
                         {item.name}
                       </a>
                     ))}
@@ -117,12 +123,13 @@ export default function Navbar(props) {
                 style={{ gap: 30 }}
               >
                 <div style={{ marginTop: "0.4rem" }}>
-                  <FontAwesomeIcon
+                  {/* <FontAwesomeIcon
                     icon={faCartShopping}
                     size="xl"
                     style={{ color: "black", cursor: "pointer" }}
                     onClick={handleClick}
-                  />
+                  /> */}
+                  <MaterialSymbolsShoppingCartOutlineRounded style = {{cursor:"pointer"}} color = {"black"} size = {"1.75rem"} onClick = {handleClick}/>
                   {(props.count > 0 || itemCount > 0) && (
                     <span
                       className="count"
@@ -162,10 +169,11 @@ export default function Navbar(props) {
                     item.current
                       ? "bg-gray-900 text-black"
                       : "text-black hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
+                    "flex gap-2 rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
+                  <span className="mt-1">{item.icon}</span>
                   {item.name}
                 </Disclosure.Button>
               ))}

@@ -149,12 +149,8 @@ export default function Cart() {
                         <h2 className="text-lg font-bold text-gray-900">
                           {item.name}
                         </h2>
-                        <p className="mt-1 text-l text-gray-700">
-                          Rs. {item.price}
-                        </p>
-                        <p className="mt-1 text-l text-gray-700">
-                          Category - {item.category}
-                        </p>
+                        <p class="bg-green-300 w-16 py-2 px-3.5 text-green-900 text-xs font-medium mt-4 rounded-full dark:bg-green-700 dark:text-white">Rs. {item.price}</p>
+                        <p class="bg-yellow-200 mt-2 py-2 px-3 w-fit text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-700 dark:text-white">{item.category}</p>
                       </div>
                       <div className="mt-4 flex  sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                         <div className="flex items-center">

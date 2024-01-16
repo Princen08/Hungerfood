@@ -57,7 +57,7 @@ export default function MyOrders() {
                       Ordered At: {order.purchaseAt}
                     </h2>
                     <div className="mt-4"> 
-                      {order.collected ? <span class="bg-green-100 w-text-green-800 text-xs font-medium me-2 px-2.5 py-2 rounded-full dark:bg-green-900 dark:text-green-300">Collected</span>: <span  className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-2 rounded-full dark:bg-red-900 dark:text-red-300">Not Collected</span>}
+                      {order.collected ? <span class="bg-green-100 w-text-green-800 text-xs font-medium me-2 px-2.5 py-2 rounded-full dark:bg-green-900 dark:text-green-300">Collected</span>: <span  className="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-2 rounded-full dark:bg-red-500 dark:text-white">Not Collected</span>}
                     </div>
                   </div>
                   <div className="mt-4 flex  sm:space-y-2 sm:mt-0 sm:block sm:space-x-6">
