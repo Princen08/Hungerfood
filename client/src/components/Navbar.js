@@ -40,11 +40,10 @@ export default function Navbar(props) {
   }
 
   useEffect(() => {
-     if(!props?.count) {
-      cartItems();
-      // setItemCount(0)
+     if(props?.count) {
+       setItemCount(props.count);
      } else {
-      setItemCount(props.count);
+       cartItems();
      }
   })
   
